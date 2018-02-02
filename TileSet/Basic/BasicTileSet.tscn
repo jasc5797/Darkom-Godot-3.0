@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Floor.tex" type="Texture" id=1]
+[ext_resource path="res://Assets/RightSlope.tex" type="Texture" id=2]
+[ext_resource path="res://Assets/LeftSlope.tex" type="Texture" id=3]
+
+[node name="BasicTileSet" type="Node2D"]
+
+[node name="Floor" type="Sprite" parent="." index="0"]
+
+position = Vector2( 85.9416, 82.2584 )
+texture = ExtResource( 1 )
+
+[node name="RightSlope" type="Sprite" parent="." index="1"]
+
+position = Vector2( 135.889, 61.0892 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -32 )
+_sections_unfolded = [ "Offset" ]
+
+[node name="LeftSlope" type="Sprite" parent="." index="2"]
+
+position = Vector2( 46.0555, 64.4133 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -32 )
+_sections_unfolded = [ "Offset" ]
+
+
