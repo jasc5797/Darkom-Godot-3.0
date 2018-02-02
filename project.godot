@@ -8,8 +8,6 @@
 
 config_version=3
 
-z=null
-
 [application]
 
 config/name="Darkom 1-22-2018"
@@ -19,7 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Resources="*res://Scripts/Resources.gd"
-MapHandler="*res://Nodes/MapHandler/MapHandler.gd"
+MapHandler="*res://Scripts/MapHandler.gd"
 
 [input]
 

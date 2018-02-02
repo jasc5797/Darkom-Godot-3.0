@@ -2,13 +2,13 @@
 
 [ext_resource path="res://Nodes/Tilemap2D/TileMap2D.gd" type="Script" id=1]
 
-[node name="TileMap" type="TileMap" index="0"]
+[node name="0" type="TileMap"]
 
 z_as_relative = false
 mode = 1
 tile_set = null
 cell_size = Vector2( 64, 32 )
-cell_quadrant_size = 16
+cell_quadrant_size = 1
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 cell_half_offset = 2
 cell_tile_origin = 0

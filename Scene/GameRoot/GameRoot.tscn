@@ -1,16 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Scene/GameRoot/GameRoot.gd" type="Script" id=1]
-[ext_resource path="res://Maps/TestMap.tscn" type="PackedScene" id=2]
 
 [node name="Game Root" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="TileMap3D" parent="." index="0" instance=ExtResource( 2 )]
-
-[node name="Camera2D" type="Camera2D" parent="." index="1"]
+[node name="Camera2D" type="Camera2D" parent="." index="0"]
 
 z_as_relative = false
 anchor_mode = 1
@@ -38,4 +35,3 @@ editor_draw_drag_margin = false
 _sections_unfolded = [ "Z Index" ]
 
 
-[editable path="TileMap3D"]

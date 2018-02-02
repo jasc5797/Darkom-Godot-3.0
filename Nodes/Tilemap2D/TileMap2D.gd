@@ -13,7 +13,7 @@ func initialize_tile_map():
 	for tile_pos in get_used_cells():
 		#var id = get_cellv(tile_pos)
 		#Select specific ids to add to valid tile_map
-		tile_map.append(tile_pos)
+		tile_map.append(tile_pos)# + get_level_offset())
 
 func set_level(new_level):
 	if level != null:
@@ -26,7 +26,6 @@ func get_level():
 	return level
 
 func has_tile_pos2D(tile_pos2D):
-	var offset = Vector2(level, level)
 	return tile_map.has(tile_pos2D)
 
 func get_tile_map():
@@ -38,8 +37,14 @@ func get_type():
 #Standard TileMap.world_to_map does not take into account the offset that is caused
 #by setting the level
 func world_to_map2D(world_pos2D):
-	var tile_pos = world_to_map(world_pos2D) + get_level_offset()
-	return tile_pos
+	var tile_pos = world_to_map(world_pos2D)
+	return tile_pos + get_level_offset()
 
 func get_level_offset():
 	return Vector2(level, level)
+	##if level > 0:
+	#	return Vector2(level * 2, level * 2)
+	#elif level == 0:
+	#	return Vector2(2, 1)
+	#else:
+	#	return Vector2((-level * 2) + 1, (-level * 2))

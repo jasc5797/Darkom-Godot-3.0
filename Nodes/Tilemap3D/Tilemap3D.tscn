@@ -6,6 +6,6 @@
 
 z_as_relative = false
 script = ExtResource( 1 )
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 
