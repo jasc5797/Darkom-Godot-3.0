@@ -9,8 +9,11 @@ func _ready():
 	#set_process_unhandled_input(true)
 	pass
 
-func add_tile_map3D(new_tile_map3D):
+func set_tile_map3D(new_tile_map3D):
 	tile_map3D = new_tile_map3D
+
+func get_tile_map3D():
+	return tile_map3D
 
 func select_tile_pos2D(world_pos2D):
 	var tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
@@ -20,7 +23,17 @@ func select_tile_pos2D(world_pos2D):
 	else:
 		selected_tile_pos3D = null
 
+func move_to_tile_pos2D(world_pos2D):
+	var tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
+	if tile_pos3D_list != null and !tile_pos3D_list.empty():
+		var tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
+		print(selected_tile_pos3D)
+		print(tile_pos3D)
+		print(get_tile_pos3D_path(selected_tile_pos3D, tile_pos3D))
 
+func get_tile_pos3D_path(start_pos3D, end_pos3D):
+	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D)
+	return tile_path3D
 
 
 

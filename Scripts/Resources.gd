@@ -7,4 +7,5 @@ var A_Star = load(A_STAR_PATH)
 const PRIORITY_QUEUE_PATH = "res://Scripts/PriorityQueue.gd"
 var PriorityQueue = load(PRIORITY_QUEUE_PATH)
 
-const LEVEL_1_PATH = "res://Maps/TestMap.tscn"
+# Node Paths
+const CHARACTER_PATH = "res://Nodes/Character/Character.tscn"

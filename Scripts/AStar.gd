@@ -4,11 +4,7 @@ var priority_queue = Resources.PriorityQueue.new()
 
 #Add handling for unreachable tiles
 
-#Keys: tile_pos, Value: Neighbors pos
-var neighbors_map = {}
-
-func get_path(tilemap3d, start_pos, goal_pos):
-	neighbors_map.clear()
+func get_path(tile_map3D, start_pos, goal_pos):
 	priority_queue.clear()
 	priority_queue.put(start_pos, 0)
 	#Key: Tile, Value: Previous Tile
@@ -23,10 +19,7 @@ func get_path(tilemap3d, start_pos, goal_pos):
 		if current_pos == goal_pos:
 			break
 		# Get tile neighbors
-		var current_neighbors
-		if not neighbors_map.has(current_pos):
-			neighbors_map[current_pos] = get_neighbors(tilemap3d, current_pos)
-		current_neighbors = neighbors_map[current_pos]
+		var current_neighbors = get_neighbors(tile_map3D, current_pos)
 		for neighbor_pos in current_neighbors:
 			var new_cost = cost[current_pos] + get_cost(current_pos, neighbor_pos)
 			if not cost.keys().has(neighbor_pos) or new_cost < cost[neighbor_pos]:
@@ -42,7 +35,7 @@ func get_heuristic(start_pos, goal_pos):
 
 func get_cost(current_pos, neighbor_pos):
 	#Diagonals are given slightly higher cost to stop character from walking in zig zag. Needs testing/proof?
-	if current_pos.x == neighbor_pos.x or current_pos.x == neighbor_pos.x:
+	if current_pos.x == neighbor_pos.x or current_pos.y == neighbor_pos.y:
 		return 10
 	return 14
 
@@ -55,14 +48,14 @@ func get_reconstructed_path(came_from, start_pos, goal_pos):
 	path.invert()
 	return path
 
-func get_neighbors(tilemap3D, tile_pos3D):
+func get_neighbors(tile_map3D, tile_pos3D):
 	var neighbors = []
-	if tilemap3D.has_tile_pos3D(tile_pos3D + Vector3(1, 0, 0)):
+	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(1, 0, 0)):
 		neighbors.append(tile_pos3D + Vector3(1, 0, 0))
-	if tilemap3D.has_tile_pos3D(tile_pos3D + Vector3(-1, 0, 0)):
+	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(-1, 0, 0)):
 		neighbors.append(tile_pos3D + Vector3(-1, 0, 0))
-	if tilemap3D.has_tile_pos3D(tile_pos3D + Vector3(0, 1, 0)):
+	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, 1, 0)):
 		neighbors.append(tile_pos3D + Vector3(0, 1, 0))
-	if tilemap3D.has_tile_pos3D(tile_pos3D + Vector3(0, -1, 0)):
+	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, -1, 0)):
 		neighbors.append(tile_pos3D + Vector3(0, -1, 0))
 	return neighbors
