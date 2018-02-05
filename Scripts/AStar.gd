@@ -15,11 +15,13 @@ func get_path(tile_map3D, start_pos, goal_pos):
 	cost[start_pos] = 0
 	while not priority_queue.empty():
 		var current_pos = priority_queue.pop()
+		#print(current_pos)
 		#Break if the goal has been reached
 		if current_pos == goal_pos:
 			break
 		# Get tile neighbors
 		var current_neighbors = get_neighbors(tile_map3D, current_pos)
+		#print(current_neighbors)
 		for neighbor_pos in current_neighbors:
 			var new_cost = cost[current_pos] + get_cost(current_pos, neighbor_pos)
 			if not cost.keys().has(neighbor_pos) or new_cost < cost[neighbor_pos]:
@@ -27,7 +29,7 @@ func get_path(tile_map3D, start_pos, goal_pos):
 				var priority = new_cost + get_heuristic(goal_pos, neighbor_pos)
 				priority_queue.put(neighbor_pos, priority)
 				came_from[neighbor_pos] = current_pos
-	return get_reconstructed_path(came_from, start_pos, goal_pos)
+	#return get_reconstructed_path(came_from, start_pos, goal_pos)
 
 func get_heuristic(start_pos, goal_pos):
 	#Manhattan distance formula
@@ -58,4 +60,5 @@ func get_neighbors(tile_map3D, tile_pos3D):
 		neighbors.append(tile_pos3D + Vector3(0, 1, 0))
 	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, -1, 0)):
 		neighbors.append(tile_pos3D + Vector3(0, -1, 0))
+	print(neighbors)
 	return neighbors
