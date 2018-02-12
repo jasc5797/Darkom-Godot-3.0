@@ -6,7 +6,7 @@
 
 [resource]
 
-0/name = "Floor"
+0/name = "Floor(A)"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
@@ -15,7 +15,7 @@
 0/occluder_offset = Vector2( 32.5, 16.5 )
 0/navigation_offset = Vector2( 32.5, 16.5 )
 0/shapes = [  ]
-1/name = "RightSlope"
+1/name = "RightSlope(UL,DR)"
 1/texture = ExtResource( 2 )
 1/tex_offset = Vector2( 0, -32 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -24,7 +24,7 @@
 1/occluder_offset = Vector2( 32.5, 32.5 )
 1/navigation_offset = Vector2( 32.5, 32.5 )
 1/shapes = [  ]
-2/name = "LeftSlope"
+2/name = "LeftSlope(UR,DL)"
 2/texture = ExtResource( 3 )
 2/tex_offset = Vector2( 0, -32 )
 2/modulate = Color( 1, 1, 1, 1 )

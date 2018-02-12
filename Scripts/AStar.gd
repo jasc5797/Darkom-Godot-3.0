@@ -15,13 +15,11 @@ func get_path(tile_map3D, start_pos, goal_pos):
 	cost[start_pos] = 0
 	while not priority_queue.empty():
 		var current_pos = priority_queue.pop()
-		#print(current_pos)
 		#Break if the goal has been reached
 		if current_pos == goal_pos:
 			break
 		# Get tile neighbors
-		var current_neighbors = get_neighbors(tile_map3D, current_pos)
-		#print(current_neighbors)
+		var current_neighbors = tile_map3D.get_neighbors(current_pos)#get_neighbors(tile_map3D, current_pos)
 		for neighbor_pos in current_neighbors:
 			var new_cost = cost[current_pos] + get_cost(current_pos, neighbor_pos)
 			if not cost.keys().has(neighbor_pos) or new_cost < cost[neighbor_pos]:
@@ -29,7 +27,7 @@ func get_path(tile_map3D, start_pos, goal_pos):
 				var priority = new_cost + get_heuristic(goal_pos, neighbor_pos)
 				priority_queue.put(neighbor_pos, priority)
 				came_from[neighbor_pos] = current_pos
-	#return get_reconstructed_path(came_from, start_pos, goal_pos)
+	return get_reconstructed_path(came_from, start_pos, goal_pos)
 
 func get_heuristic(start_pos, goal_pos):
 	#Manhattan distance formula
@@ -51,14 +49,42 @@ func get_reconstructed_path(came_from, start_pos, goal_pos):
 	return path
 
 func get_neighbors(tile_map3D, tile_pos3D):
+	var tile_name = tile_map3D.get_tile_pos3D(tile_pos3D)
+	var open_index = tile_name.find("(")
+	var close_index = tile_name.find(")")
+	var tile_info = tile_name.substr(open_index + 1, close_index - open_index - 1).split(",")
 	var neighbors = []
-	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(1, 0, 0)):
-		neighbors.append(tile_pos3D + Vector3(1, 0, 0))
-	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(-1, 0, 0)):
-		neighbors.append(tile_pos3D + Vector3(-1, 0, 0))
-	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, 1, 0)):
-		neighbors.append(tile_pos3D + Vector3(0, 1, 0))
-	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, -1, 0)):
-		neighbors.append(tile_pos3D + Vector3(0, -1, 0))
-	print(neighbors)
+	#A stands for all on the same level
+	if has_string(tile_info, "A"):
+		if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(1, 0, 0)):
+			neighbors.append(tile_pos3D + Vector3(1, 0, 0))
+		if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(-1, 0, 0)):
+			neighbors.append(tile_pos3D + Vector3(-1, 0, 0))
+		if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, 1, 0)):
+			neighbors.append(tile_pos3D + Vector3(0, 1, 0))
+		if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, -1, 0)):
+			neighbors.append(tile_pos3D + Vector3(0, -1, 0))
+	if has_string(tile_info, "UR"):
+		if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, -1, 1)):
+			neighbors.append(tile_pos3D + Vector3(0, -1, 1))
+	if has_string(tile_info, "DL"):
+		if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(1, 1, 0)):
+			neighbors.append(tile_pos3D + Vector3(1, 1, 0))
+	
+	#print(tile_info)
+	#if has_string(tile_info, "UL"):
+	#	print(tile_pos3D)
+	#	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(0, 1, 1)):
+	#		print(tile_pos3D + Vector3(0, 1, 1))
+	#		neighbors.append(tile_pos3D + Vector3(0, 1, 1))
+	#if has_string(tile_info, "DR"):
+	#	if tile_map3D.has_tile_pos3D(tile_pos3D + Vector3(-1, -1, 0)):
+	#		print(tile_pos3D + Vector3(-1, -1, 0))
+	#		neighbors.append(tile_pos3D + Vector3(-1, -1, 0))
 	return neighbors
+
+func has_string(array, value):
+	for test in array:
+		if test == value:
+			return true
+	return false

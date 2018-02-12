@@ -10,7 +10,7 @@ config_version=3
 
 [application]
 
-config/name="Darkom 1-22-2018"
+config/name="Darkom"
 run/main_scene="res://Scene/GameRoot/GameRoot.tscn"
 config/icon="res://icon.png"
 
