@@ -15,7 +15,7 @@
 0/occluder_offset = Vector2( 32.5, 16.5 )
 0/navigation_offset = Vector2( 32.5, 16.5 )
 0/shapes = [  ]
-1/name = "RightSlope(UL,DR)"
+1/name = "RightSlope(UW,E,S,N)"
 1/texture = ExtResource( 2 )
 1/tex_offset = Vector2( 0, -32 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -24,7 +24,7 @@
 1/occluder_offset = Vector2( 32.5, 32.5 )
 1/navigation_offset = Vector2( 32.5, 32.5 )
 1/shapes = [  ]
-2/name = "LeftSlope(UR,DL)"
+2/name = "LeftSlope(UN,S,E,W)"
 2/texture = ExtResource( 3 )
 2/tex_offset = Vector2( 0, -32 )
 2/modulate = Color( 1, 1, 1, 1 )

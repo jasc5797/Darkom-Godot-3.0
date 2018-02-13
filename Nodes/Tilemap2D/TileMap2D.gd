@@ -32,44 +32,60 @@ func set_neigbors_on_level(tile_pos2D, tile_info):
 	if tile_info.has("S") or tile_info.has("A"):
 		if has_tile_pos2D(tile_pos2D + Vector2(0, 1)):
 			neighbors.append(tile_pos3D + Vector3(0, 1, 0))
-	if tile_info.has("E") or tile_info.has("A"):
+	if tile_info.has("W") or tile_info.has("A"):
 		if has_tile_pos2D(tile_pos2D + Vector2(-1, 0)):
 			neighbors.append(tile_pos3D + Vector3(-1, 0, 0))
-	if tile_info.has("W") or tile_info.has("A"):
+	if tile_info.has("E") or tile_info.has("A"):
 		if has_tile_pos2D(tile_pos2D + Vector2(1, 0)):
 			neighbors.append(tile_pos3D + Vector3(1, 0, 0))
+	if tile_info.has("NE") or tile_info.has("A"):
+		if has_tile_pos2D(tile_pos2D + Vector2(1, -1)):
+			neighbors.append(tile_pos3D + Vector3(1, -1, 0))
+	if tile_info.has("NW") or tile_info.has("A"):
+		if has_tile_pos2D(tile_pos2D + Vector2(-1, -1)):
+			neighbors.append(tile_pos3D + Vector3(-1, -1, 0))
+	if tile_info.has("SE") or tile_info.has("A"):
+		if has_tile_pos2D(tile_pos2D + Vector2(1, 1)):
+			neighbors.append(tile_pos3D + Vector3(1, 1, 0))
+	if tile_info.has("SW") or tile_info.has("A"):
+		if has_tile_pos2D(tile_pos2D + Vector2(-1, 1)):
+			neighbors.append(tile_pos3D + Vector3(-1, 1, 0))
+	#print(tile_pos3D)
 	for neighbor in neighbors:
+		#print("Pos: %s Neighbor %s" % [tile_pos2D, neighbor])
 		tile_map[tile_pos2D].append(neighbor)
 
 func set_unattached_neighbors(tile_pos2D, tile_info):
 	var tile_pos3D = Vector3(tile_pos2D.x, tile_pos2D.y, level)
 	var neighbors_to_check = []
 	for info in tile_info:
-		var neighbor = Vector2(0, 0)
 		if info.find("D") >= 0:
 			if info.find("N") >= 0 or info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(0, -1, -1))
 			if info.find("S") >= 0 or info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(0, 1, -1))
-			if info.find("E") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, -1))
 			if info.find("W") >= 0 or info.find("A") >= 0:
+				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, -1))
+			if info.find("E") >= 0 or info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(1, 0, -1))
 		if info.find("U") >= 0:
 			if info.find("N") >= 0 or info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(0, -1, 1))
 			if info.find("S") >= 0 or info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(0, 1, 1))
-			if info.find("E") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, 1))
 			if info.find("W") >= 0 or info.find("A") >= 0:
+				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, 1))
+			if info.find("E") >= 0 or info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(1, 0, 1))
 	if not neighbors_to_check.empty():
 		unattached_neighbors[tile_pos2D] = neighbors_to_check
 	
 
 func get_unattached_neighbors():
-	
+	return unattached_neighbors
+
+func add_neighbor(tile_pos2D, tile_pos3D):
+	tile_map[tile_pos2D].append(tile_pos3D)
 
 func get_neighbors(tile_pos2D):
 	return tile_map[tile_pos2D]

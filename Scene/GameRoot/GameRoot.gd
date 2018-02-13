@@ -20,3 +20,9 @@ func _unhandled_input(event):
 		MapHandler.select_tile_pos2D(get_global_mouse_position())
 	if event.is_action_released("right_click"):
 		MapHandler.move_to_tile_pos2D(get_global_mouse_position())
+
+
+#May or may not be needed
+func _exit_true():
+	Current_Map.free()
+	Character.free()
