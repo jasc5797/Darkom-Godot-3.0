@@ -5,6 +5,9 @@ var a_star = Resources.A_Star.new()
 var tile_map3D
 var selected_tile_pos3D
 
+#Key: Object Value: Pos   or visa versa    should be accessible by or passed to AStar 
+var objects_on_map3D = {}
+
 func _ready():
 	#set_process_unhandled_input(true)
 	pass

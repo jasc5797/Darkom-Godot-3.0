@@ -91,7 +91,7 @@ func get_neighbors(tile_pos2D):
 	return tile_map[tile_pos2D]
 
 func set_level(new_level):
-	if level != null:
+	if new_level != null:
 		level = new_level
 		set_position(-Vector2(0, level * cell_size.y))
 		#Trying to get a z level between each tilemap by multiplying the level by two 
