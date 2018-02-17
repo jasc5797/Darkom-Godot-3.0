@@ -7,9 +7,11 @@ export(int) var level = 0 setget set_level, get_level
 var tile_map = {}
 
 var unattached_neighbors = {}
+var children_tile_based_nodes = []
 
 func _ready():
 	initialize_tile_map()
+	parse_children()
 
 func initialize_tile_map():
 	for tile_pos2D in get_used_cells():
@@ -50,9 +52,7 @@ func set_neigbors_on_level(tile_pos2D, tile_info):
 	if tile_info.has("SW") or tile_info.has("A"):
 		if has_tile_pos2D(tile_pos2D + Vector2(-1, 1)):
 			neighbors.append(tile_pos3D + Vector3(-1, 1, 0))
-	#print(tile_pos3D)
 	for neighbor in neighbors:
-		#print("Pos: %s Neighbor %s" % [tile_pos2D, neighbor])
 		tile_map[tile_pos2D].append(neighbor)
 
 func set_unattached_neighbors(tile_pos2D, tile_info):
@@ -79,7 +79,19 @@ func set_unattached_neighbors(tile_pos2D, tile_info):
 				neighbors_to_check.append(tile_pos3D + Vector3(1, 0, 1))
 	if not neighbors_to_check.empty():
 		unattached_neighbors[tile_pos2D] = neighbors_to_check
-	
+
+func parse_children():
+	for child in get_children():
+		if child.get_base_type() == "TileBasedNode":
+			children_tile_based_nodes.append(child)
+
+func get_children_tile_based_nodes():
+	return children_tile_based_nodes
+
+#used to clean var that arent need after initialization
+func clean():
+	unattached_neighbors.clear()
+	children_tile_based_nodes.clear()
 
 func get_unattached_neighbors():
 	return unattached_neighbors

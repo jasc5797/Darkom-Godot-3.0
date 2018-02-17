@@ -8,12 +8,18 @@ var selected_tile_pos3D
 #Key: Object Value: Pos   or visa versa    should be accessible by or passed to AStar 
 var objects_on_map3D = {}
 
+var tile_based_nodes = []
+
 func _ready():
 	#set_process_unhandled_input(true)
 	pass
 
 func set_tile_map3D(new_tile_map3D):
 	tile_map3D = new_tile_map3D
+	tile_based_nodes = tile_map3D.get_children_tile_based_nodes()
+	#could call clean here
+	#for child in tile_map3D.get_children_tile_based_nodes():
+	#	print(child.get_is_collidable())
 
 func get_tile_map3D():
 	return tile_map3D

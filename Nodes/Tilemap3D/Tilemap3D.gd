@@ -5,7 +5,15 @@ var levels = {}
 func _ready():
 	parse_children_tilemap2D()
 	connect_level_neighbors()
+	#clean()
 	#clean neighbors, remove neighbors connetions that are one directional
+
+#used to clean unneed var that arent needed after initializing
+func clean():
+	for level in levels:
+		var tile_map2D = get_level(level)
+		#dont use yet, probably clears children before they are retrieved by maphandler
+		tile_map2D.clean()
 
 #Process children tilemap2D nodes and adds them to the level system
 func parse_children_tilemap2D():
@@ -29,6 +37,14 @@ func connect_level_neighbors():
 					var tile_pos3D = Vector3(tile_pos2D.x, tile_pos2D.y, level)
 					var neighbor_pos2D = Vector2(neighbor_pos3D.x, neighbor_pos3D.y)
 					neighbor_tile_map2D.add_neighbor(neighbor_pos2D, tile_pos3D)
+
+func get_children_tile_based_nodes():
+	var children_tile_based_nodes = []
+	for level in levels:
+		var tile_map2D = get_level(level)
+		for child in tile_map2D.get_children_tile_based_nodes():
+			children_tile_based_nodes.append(child)
+	return children_tile_based_nodes
 
 func add_level(level, tilemap):
 	levels[int(level)] = tilemap

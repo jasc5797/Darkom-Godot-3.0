@@ -10,6 +10,7 @@
 
 position = Vector2( 85.9416, 82.2584 )
 texture = ExtResource( 1 )
+_sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="RightSlope(UW,E,S,N)" type="Sprite" parent="." index="1"]
 

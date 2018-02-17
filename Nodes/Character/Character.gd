@@ -1,3 +1,4 @@
+tool
 extends "res://Nodes/TileBasedNode/TileBasedNode.gd"
 
 onready var tween = get_node("Tween")
@@ -25,3 +26,6 @@ func move_to_pos(pos):
 
 func _on_Tween_completed( object, key ):
 	move_on_path()
+
+func get_type():
+	return "Character"
