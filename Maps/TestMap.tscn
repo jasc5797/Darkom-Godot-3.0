@@ -6,7 +6,7 @@
 [ext_resource path="res://Nodes/Character/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/PlayerSpawnPoint/PlayerSpawnPoint.tscn" type="PackedScene" id=5]
 
-[node name="TileMap3D" index="0" instance=ExtResource( 1 )]
+[node name="TileMap3D" instance=ExtResource( 1 )]
 
 [node name="2" parent="." index="0" instance=ExtResource( 2 )]
 
@@ -18,7 +18,7 @@ level = 2
 
 [node name="Sprite" parent="2" index="0" instance=ExtResource( 4 )]
 
-position = Vector2( 416, -112 )
+position = Vector2( 416, -48 )
 z_index = 5
 tile_pos3D = Vector3( 5, -8, 2 )
 

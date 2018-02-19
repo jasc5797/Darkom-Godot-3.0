@@ -2,6 +2,9 @@ extends Node
 
 var a_star = Resources.A_Star.new()
 
+var Outline = load(Resources.OUTLINE_PATH)
+var outline = Outline.instance()
+
 var tile_map3D
 var selected_tile_pos3D
 
@@ -11,6 +14,7 @@ var objects_on_map3D = {}
 var tile_based_nodes = []
 
 func _ready():
+	add_child(outline)
 	#set_process_unhandled_input(true)
 	pass
 
@@ -28,9 +32,13 @@ func select_tile_pos2D(world_pos2D):
 	var tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
 	if tile_pos3D_list != null and !tile_pos3D_list.empty():
 		selected_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
+		if is_character_at_pos(selected_tile_pos3D):
+			outline.set_tile_pos3D(selected_tile_pos3D)
+			outline.show()
 		print("Selected Tile Pos: %s" %selected_tile_pos3D)
 	else:
 		selected_tile_pos3D = null
+		outline.hide()
 
 func move_to_tile_pos2D(world_pos2D):
 	var tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
@@ -45,7 +53,16 @@ func get_tile_pos3D_path(start_pos3D, end_pos3D):
 	print(tile_path3D)
 	return tile_path3D
 
+func get_tile_based_nodes():
+	return tile_based_nodes
 
+func is_character_at_pos(tile_pos3D):
+	for node in tile_based_nodes:
+		print(node.get_tile_pos3D())
+		print(tile_pos3D)
+		print("---------")
+		if node.get_tile_pos3D() == tile_pos3D:
+			return true
 
 #func _unhandled_input(event):
 #	if event.is_action_released("left_click"):

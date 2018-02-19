@@ -12,6 +12,7 @@ func _ready():
 	#character.set_tile_pos3D(Vector3(5, -2, 1))
 	#add_child(character)
 	MapHandler.set_tile_map3D(tile_map3D)
+	#print(MapHandler.get_tile_based_nodes())
 	set_process(true)
 	set_process_unhandled_input(true)
 
