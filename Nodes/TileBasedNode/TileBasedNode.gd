@@ -31,7 +31,7 @@ func set_tile_size(new_tile_size):
 	if new_tile_size != null:
 		tile_size = new_tile_size
 		var x = tile_pos3D.x * tile_size.x / 2 - tile_pos3D.y * tile_size.x / 2
-		var y = tile_pos3D.x * tile_size.y / 2 + tile_pos3D.y * tile_size.y / 2 
+		var y = tile_pos3D.x * tile_size.y / 2 + tile_pos3D.y * tile_size.y / 2 - tile_pos3D.z * tile_size.y
 		set_position(Vector2(x, y))
 
 func get_tile_size():

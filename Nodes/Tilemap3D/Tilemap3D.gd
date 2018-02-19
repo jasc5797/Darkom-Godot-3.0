@@ -2,8 +2,10 @@ extends Node2D
 
 var levels = {}
 
+var children_tile_based_nodes = []
+
 func _ready():
-	parse_children_tilemap2D()
+	parse_children()
 	connect_level_neighbors()
 	#clean()
 	#clean neighbors, remove neighbors connetions that are one directional
@@ -16,13 +18,14 @@ func clean():
 		tile_map2D.clean()
 
 #Process children tilemap2D nodes and adds them to the level system
-func parse_children_tilemap2D():
+func parse_children():
 	for child in get_children():
 		if child.get_type() == "TileMap2D":
 			var level = child.get_level()
 			add_level(level, child)
-		else:
-			print(child.get_name(), " is not a TileMap2D node")
+		elif child.get_base_type() == "TileBasedNode":
+			children_tile_based_nodes.append(child)
+
 
 func connect_level_neighbors():
 	for level in levels:
@@ -39,11 +42,6 @@ func connect_level_neighbors():
 					neighbor_tile_map2D.add_neighbor(neighbor_pos2D, tile_pos3D)
 
 func get_children_tile_based_nodes():
-	var children_tile_based_nodes = []
-	for level in levels:
-		var tile_map2D = get_level(level)
-		for child in tile_map2D.get_children_tile_based_nodes():
-			children_tile_based_nodes.append(child)
 	return children_tile_based_nodes
 
 func add_level(level, tilemap):
@@ -80,7 +78,13 @@ func get_tile_pos3D(tile_pos3D):
 func world_to_map3D(pos_3D):
 	var tile_map2D = get_level(pos_3D.z)
 	var tile_pos2D = tile_map2D.world_to_map2D(Vector2(pos_3D.x, pos_3D.y))
-	return Vector2(tile_pos2D.x, tile_pos2D.y, pos_3D.z)
+	return Vector3(tile_pos2D.x, tile_pos2D.y, pos_3D.z)
+
+#highly unecessary for path lol
+func map_to_world3D(tile_pos3D):
+	var tile_map2D = get_level(tile_pos3D.z)
+	var world_pos2D = tile_map2D.map_to_world2D(Vector2(tile_pos3D.x, tile_pos3D.y))
+	return Vector3(world_pos2D.x, world_pos2D.y, tile_pos3D.z)
 
 
 #returns all the possible tile_pos2D at a given world_pos2

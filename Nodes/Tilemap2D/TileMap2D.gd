@@ -7,11 +7,10 @@ export(int) var level = 0 setget set_level, get_level
 var tile_map = {}
 
 var unattached_neighbors = {}
-var children_tile_based_nodes = []
+
 
 func _ready():
 	initialize_tile_map()
-	parse_children()
 
 func initialize_tile_map():
 	for tile_pos2D in get_used_cells():
@@ -80,18 +79,10 @@ func set_unattached_neighbors(tile_pos2D, tile_info):
 	if not neighbors_to_check.empty():
 		unattached_neighbors[tile_pos2D] = neighbors_to_check
 
-func parse_children():
-	for child in get_children():
-		if child.get_base_type() == "TileBasedNode":
-			children_tile_based_nodes.append(child)
-
-func get_children_tile_based_nodes():
-	return children_tile_based_nodes
 
 #used to clean var that arent need after initialization
 func clean():
 	unattached_neighbors.clear()
-	children_tile_based_nodes.clear()
 
 func get_unattached_neighbors():
 	return unattached_neighbors
@@ -129,6 +120,10 @@ func get_type():
 func world_to_map2D(world_pos2D):
 	var tile_pos = world_to_map(world_pos2D)
 	return tile_pos + get_level_offset()
+
+func map_to_world2D(tile_pos2D):
+	var world_pos2D = map_to_world(tile_pos2D - get_level_offset())
+	return world_pos2D
 
 func get_level_offset():
 	return Vector2(level, level)
