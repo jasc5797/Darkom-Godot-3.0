@@ -29,7 +29,9 @@ func get_tile_map3D():
 	return tile_map3D
 
 func select_tile_pos2D(world_pos2D):
-	var tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
+	var tile_pos3D_list
+	if world_pos2D != null:
+		tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
 	if tile_pos3D_list != null and !tile_pos3D_list.empty():
 		selected_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
 		if get_character_at_pos(selected_tile_pos3D) != null:
@@ -53,7 +55,8 @@ func move_to_tile_pos2D(world_pos2D):
 			var world_path2D = []
 			for world_pos3D in world_path3D:
 				world_path2D.append(Vector2(world_pos3D.x, world_pos3D.y))
-			character.set_path(world_path2D)
+			character.set_path(world_path2D, tile_path3D)
+			select_tile_pos2D(null)
 
 func get_tile_pos3D_path(start_pos3D, end_pos3D):
 	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D)
