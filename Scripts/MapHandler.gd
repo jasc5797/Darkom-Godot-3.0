@@ -14,6 +14,7 @@ var objects_on_map3D = {}
 var tile_based_nodes = []
 
 func _ready():
+	add_child(a_star)
 	add_child(outline)
 	#set_process_unhandled_input(true)
 	pass

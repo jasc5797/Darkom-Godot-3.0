@@ -1,10 +1,16 @@
-extends Node
+extends Node2D
 
 var priority_queue = Resources.PriorityQueue.new()
 
+var show_circles = false
+
 #Add handling for unreachable tiles
+var circles = []
 
 func get_path(tile_map3D, start_pos, goal_pos):
+	circles.clear()
+	set_as_toplevel(true)
+	z_index = 100
 	priority_queue.clear()
 	priority_queue.put(start_pos, 0)
 	#Key: Tile, Value: Previous Tile
@@ -15,6 +21,9 @@ func get_path(tile_map3D, start_pos, goal_pos):
 	cost[start_pos] = 0
 	while not priority_queue.empty():
 		var current_pos = priority_queue.pop()
+		if show_circles:
+			circles.append(current_pos)
+			update()
 		#Break if the goal has been reached
 		if current_pos == goal_pos:
 			break
@@ -28,6 +37,15 @@ func get_path(tile_map3D, start_pos, goal_pos):
 				priority_queue.put(neighbor_pos, priority)
 				came_from[neighbor_pos] = current_pos
 	return get_reconstructed_path(came_from, start_pos, goal_pos)
+
+func _draw():
+	for tile_pos3D in circles:
+		var color = circles.find(tile_pos3D) * 1.0 / circles.size()
+		print(color)
+		var tile_size = Vector2(64, 32)
+		var x = tile_pos3D.x * tile_size.x / 2 - tile_pos3D.y * tile_size.x / 2
+		var y = tile_pos3D.x * tile_size.y / 2 + tile_pos3D.y * tile_size.y / 2 - tile_pos3D.z * tile_size.y
+		draw_circle(Vector2(x, y) + Vector2(0, 15), 10.0, Color(1 - color, color, 0))
 
 func get_heuristic(start_pos, goal_pos):
 	#Manhattan distance formula

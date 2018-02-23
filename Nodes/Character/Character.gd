@@ -18,12 +18,13 @@ func move_on_path():
 	if path != null and not path.empty():
 		var pos = path.front()
 		#set_sprite(get_pos(), pos)
+		z_index += 2
 		move_to_pos(pos)
 		path.pop_front()
 
 
 func move_to_pos(pos):
-	tween.interpolate_property(self, "position", get_position(), pos, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.interpolate_property(self, "position", get_position(), pos, 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
 	
 
@@ -31,10 +32,6 @@ func move_to_pos(pos):
 func _on_Tween_completed( object, key ):
 	var tile_pos3D = tile_path.front()
 	set_tile_pos3D(tile_pos3D)
-	# needed so the character doesnt draw under the level they are moving onto
-	# tile_path.size() > 1:
-	#	if tile_path[0].z < tile_path[1].z:
-	#		z_index += 1
 	tile_path.pop_front()
 	move_on_path()
 
