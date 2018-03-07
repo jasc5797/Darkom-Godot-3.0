@@ -17,7 +17,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Resources="*res://Scripts/Resources.gd"
+Factions="*res://Scripts/Factions.gd"
 Maps="*res://Scripts/Maps.gd"
+TurnManager="*res://Scripts/TurnManager.gd"
 MapHandler="*res://Scripts/MapHandler.gd"
 
 [input]

@@ -17,11 +17,14 @@ func _ready():
 	add_child(a_star)
 	add_child(outline)
 	#set_process_unhandled_input(true)
-	pass
 
 func set_tile_map3D(new_tile_map3D):
 	tile_map3D = new_tile_map3D
 	tile_based_nodes = tile_map3D.get_children_tile_based_nodes()
+	for node in tile_based_nodes:
+		if node.get_type() == "Character":
+			TurnManager.add_character(node, Factions.PLAYER)
+	TurnManager.start_turn()
 	#could call clean here
 	#for child in tile_map3D.get_children_tile_based_nodes():
 	#	print(child.get_is_collidable())
@@ -35,7 +38,8 @@ func select_tile_pos2D(world_pos2D):
 		tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
 	if tile_pos3D_list != null and !tile_pos3D_list.empty():
 		selected_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
-		if get_character_at_pos(selected_tile_pos3D) != null:
+		var character = get_character_at_pos(selected_tile_pos3D) 
+		if character != null and TurnManager.is_characters_turn(character):
 			outline.set_tile_pos3D(selected_tile_pos3D)
 			outline.show()
 		print("Selected Tile Pos: %s" %selected_tile_pos3D)
