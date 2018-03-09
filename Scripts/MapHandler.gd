@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var a_star = Resources.A_Star.new()
 
@@ -23,7 +23,7 @@ func set_tile_map3D(new_tile_map3D):
 	tile_based_nodes = tile_map3D.get_children_tile_based_nodes()
 	for node in tile_based_nodes:
 		if node.get_type() == "Character":
-			TurnManager.add_character(node, Factions.PLAYER)
+			TurnManager.add_character(node, node.get_faction())#)
 	TurnManager.start_turn()
 	#could call clean here
 	#for child in tile_map3D.get_children_tile_based_nodes():

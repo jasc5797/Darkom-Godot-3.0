@@ -3,6 +3,8 @@ extends TileMap
 
 export(int) var level = 0 setget set_level, get_level
 
+
+
 #Valid/Walkable tiles
 var tile_map = {}
 
@@ -10,12 +12,20 @@ var unattached_neighbors = {}
 
 
 func _ready():
+	if Engine.is_editor_hint():
+		#self.set_self_modulate(Color(1, 1, 1, 0.5))
+		#update()
+		pass
 	initialize_tile_map()
+
+func _draw():
+	for tile_pos2D in tile_map:
+		draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
 
 func initialize_tile_map():
 	for tile_pos2D in get_used_cells():
 		tile_map[tile_pos2D] = []
-	for tile_pos2D in tile_map.keys():
+	for tile_pos2D in tile_map:
 		var tile_id = get_cellv(tile_pos2D)
 		var tile_name = tile_set.tile_get_name(tile_id)
 		var open_index = tile_name.find("(")

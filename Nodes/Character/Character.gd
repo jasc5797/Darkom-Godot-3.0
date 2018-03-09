@@ -5,11 +5,16 @@ signal end_turn(character)
 
 onready var tween = get_node("Tween")
 
+export var faction = 0 setget set_faction, get_faction
+
 var path
 var tile_path
 
 var MAX_STAMINA = 5
 var stamina = MAX_STAMINA
+
+var MAX_HEALTH = 5
+var health = MAX_HEALTH
 
 var is_turn = false
 
@@ -17,7 +22,9 @@ var is_turn = false
 #var faction = Factions.PLAYER
 
 func _ready():
-	$ProgressBar.max_value = MAX_STAMINA
+	$StaminaBar.max_value = MAX_STAMINA
+	$HealthBar.max_value = MAX_HEALTH
+	$HealthBar.value = health
 
 func set_path(new_world_path, new_tile_path):
 	path = new_world_path
@@ -37,13 +44,14 @@ func move_on_path():
 			move_to_pos(pos)
 			path.pop_front()
 			stamina -= 1
-			$ProgressBar.value = stamina
+			$StaminaBar.value = stamina
 
 
 func start_turn():
 	is_turn = true
 	stamina = MAX_STAMINA
-	$ProgressBar.value = stamina
+	$StaminaBar.value = stamina
+	print($StaminaBar.value)
 
 func move_to_pos(pos):
 	tween.interpolate_property(self, "position", get_position(), pos, 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -57,8 +65,12 @@ func _on_Tween_completed( object, key ):
 	tile_path.pop_front()
 	move_on_path()
 
-#func get_faction():
-#	return faction
+func set_faction(value):
+	if value != null:
+		faction = value
+
+func get_faction():
+	return faction
 
 func get_type():
 	return "Character"
