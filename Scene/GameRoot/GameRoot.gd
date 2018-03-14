@@ -15,7 +15,11 @@ func _ready():
 	#print(MapHandler.get_tile_based_nodes())
 	set_process(true)
 	set_process_unhandled_input(true)
+	$CanvasLayer/AbilityBar.connect("ability_selected", self, "ability_selected")
 
+func ability_selected(ability):
+
+	MapHandler.ability_selected(ability)
 
 func _unhandled_input(event):
 	if event.is_action_released("left_click"):

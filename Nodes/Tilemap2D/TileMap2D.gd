@@ -19,8 +19,10 @@ func _ready():
 	initialize_tile_map()
 
 func _draw():
-	for tile_pos2D in tile_map:
-		draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
+	#if Engine.is_editor_hint():
+	if false:
+		for tile_pos2D in tile_map:
+			draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
 
 func initialize_tile_map():
 	for tile_pos2D in get_used_cells():

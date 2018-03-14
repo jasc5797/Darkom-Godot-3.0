@@ -4,7 +4,7 @@
 [ext_resource path="res://Nodes/Character/Character.gd" type="Script" id=2]
 [ext_resource path="res://new_styleboxflat.tres" type="StyleBox" id=3]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -60,17 +60,14 @@ shadow_size = 0
 anti_aliasing = true
 anti_aliasing_size = 1
 
-[node name="Character" type="Sprite"]
+[node name="Character" type="Sprite" index="0"]
 
 z_index = 1
 z_as_relative = false
 texture = ExtResource( 1 )
 offset = Vector2( 0, -8 )
 script = ExtResource( 2 )
-_sections_unfolded = [ "Offset", "Pause", "Transform", "Z Index" ]
-tile_pos3D = Vector3( 0, 0, 0 )
-tile_size = Vector2( 64, 32 )
-faction = 0
+_sections_unfolded = [ "Material", "Offset", "Pause", "Transform", "Visibility", "Z Index" ]
 
 [node name="Tween" type="Tween" parent="." index="0"]
 
@@ -98,7 +95,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 0
-custom_styles/fg = SubResource( 3 )
+custom_styles/fg = SubResource( 1 )
 custom_styles/bg = ExtResource( 3 )
 min_value = 0.0
 max_value = 5.0
@@ -133,7 +130,7 @@ min_value = 0.0
 max_value = 5.0
 step = 1.0
 page = 0.0
-value = 0.0
+value = 5.0
 exp_edit = false
 rounded = false
 percent_visible = false

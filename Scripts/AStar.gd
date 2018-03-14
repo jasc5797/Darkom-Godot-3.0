@@ -7,7 +7,7 @@ var show_circles = false
 #Add handling for unreachable tiles
 var circles = []
 
-func get_path(tile_map3D, start_pos, goal_pos):
+func get_path(tile_map3D, start_pos, goal_pos, tile_based_nodes):
 	circles.clear()
 	set_as_toplevel(true)
 	z_index = 100
@@ -31,12 +31,18 @@ func get_path(tile_map3D, start_pos, goal_pos):
 		var current_neighbors = tile_map3D.get_neighbors(current_pos)#get_neighbors(tile_map3D, current_pos)
 		for neighbor_pos in current_neighbors:
 			var new_cost = cost[current_pos] + get_cost(current_pos, neighbor_pos)
-			if not cost.keys().has(neighbor_pos) or new_cost < cost[neighbor_pos]:
+			if not node_at_pos(tile_based_nodes, neighbor_pos) and (not cost.keys().has(neighbor_pos) or new_cost < cost[neighbor_pos]):
 				cost[neighbor_pos] = new_cost
 				var priority = new_cost + get_heuristic(goal_pos, neighbor_pos)
 				priority_queue.put(neighbor_pos, priority)
 				came_from[neighbor_pos] = current_pos
 	return get_reconstructed_path(came_from, start_pos, goal_pos)
+
+func node_at_pos(tile_based_nodes, tile_pos3D):
+	for node in tile_based_nodes:
+		if node.get_tile_pos3D() == tile_pos3D:
+			return true
+	return false
 
 func _draw():
 	for tile_pos3D in circles:

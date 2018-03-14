@@ -1,11 +1,14 @@
 tool
 extends "res://Nodes/TileBasedNode/TileBasedNode.gd"
 
+export var faction = 0 setget set_faction, get_faction
+
 signal end_turn(character)
+signal target_character(character)
 
 onready var tween = get_node("Tween")
 
-export var faction = 0 setget set_faction, get_faction
+
 
 var path
 var tile_path
@@ -18,6 +21,8 @@ var health = MAX_HEALTH
 
 var is_turn = false
 
+var selected_ability
+
 #Not used currently. Unsure if faction should be set dynamically
 #var faction = Factions.PLAYER
 
@@ -29,6 +34,8 @@ func _ready():
 func set_path(new_world_path, new_tile_path):
 	path = new_world_path
 	tile_path = new_tile_path
+	path.pop_front()
+	tile_path.pop_front()
 	move_on_path()
 
 func move_on_path():
@@ -43,21 +50,26 @@ func move_on_path():
 			z_index += 2
 			move_to_pos(pos)
 			path.pop_front()
-			stamina -= 1
-			$StaminaBar.value = stamina
+			adjust_stamina(-1)
 
+func adjust_stamina(value):
+	stamina += value
+	$StaminaBar.value = stamina
+
+func adjust_health(value):
+	health += value
+	$HealthBar.value = health
 
 func start_turn():
 	is_turn = true
 	stamina = MAX_STAMINA
 	$StaminaBar.value = stamina
-	print($StaminaBar.value)
+	#print($StaminaBar.value)
 
 func move_to_pos(pos):
 	tween.interpolate_property(self, "position", get_position(), pos, 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
 	
-
 
 func _on_Tween_completed( object, key ):
 	var tile_pos3D = tile_path.front()
@@ -65,9 +77,24 @@ func _on_Tween_completed( object, key ):
 	tile_path.pop_front()
 	move_on_path()
 
+func ability_selected(ability):
+	selected_ability = ability
+	emit_signal("target_character", self)
+
+func attack(target_character):
+	if selected_ability == 1:
+		var damage = Abilities.get_damage("Punch")
+		var stamina = Abilities.get_stamina("Punch")
+		adjust_stamina(stamina)
+		target_character.adjust_health(damage)
+	selected_ability = null
+
+
 func set_faction(value):
 	if value != null:
 		faction = value
+		if faction == 1:
+			set("self_modulate", Color(1, 0, 0))
 
 func get_faction():
 	return faction

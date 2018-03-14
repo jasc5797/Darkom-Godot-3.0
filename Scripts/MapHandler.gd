@@ -8,26 +8,37 @@ var outline = Outline.instance()
 var tile_map3D
 var selected_tile_pos3D
 
+
+
 #Key: Object Value: Pos   or visa versa    should be accessible by or passed to AStar 
 var objects_on_map3D = {}
 
 var tile_based_nodes = []
+
+var attacking_character
 
 func _ready():
 	add_child(a_star)
 	add_child(outline)
 	#set_process_unhandled_input(true)
 
+func set_target_character():
+	var target_character = true
+
 func set_tile_map3D(new_tile_map3D):
 	tile_map3D = new_tile_map3D
 	tile_based_nodes = tile_map3D.get_children_tile_based_nodes()
 	for node in tile_based_nodes:
 		if node.get_type() == "Character":
-			TurnManager.add_character(node, node.get_faction())#)
+			TurnManager.add_character(node, node.get_faction())
+			node.connect("target_character", self, "set_attacking_character")
 	TurnManager.start_turn()
 	#could call clean here
 	#for child in tile_map3D.get_children_tile_based_nodes():
 	#	print(child.get_is_collidable())
+
+func set_attacking_character(new_attacking_character):
+	attacking_character = new_attacking_character
 
 func get_tile_map3D():
 	return tile_map3D
@@ -39,10 +50,14 @@ func select_tile_pos2D(world_pos2D):
 	if tile_pos3D_list != null and !tile_pos3D_list.empty():
 		selected_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
 		var character = get_character_at_pos(selected_tile_pos3D) 
-		if character != null and TurnManager.is_characters_turn(character):
-			outline.set_tile_pos3D(selected_tile_pos3D)
-			outline.show()
-		print("Selected Tile Pos: %s" %selected_tile_pos3D)
+		if character != null:
+			if attacking_character != null:
+				attacking_character.attack(character)
+				attacking_character = null
+			elif TurnManager.is_characters_turn(character):
+				outline.set_tile_pos3D(selected_tile_pos3D)
+				outline.show()
+		#print("Selected Tile Pos: %s" %selected_tile_pos3D)
 	else:
 		selected_tile_pos3D = null
 		outline.hide()
@@ -64,7 +79,7 @@ func move_to_tile_pos2D(world_pos2D):
 			select_tile_pos2D(null)
 
 func get_tile_pos3D_path(start_pos3D, end_pos3D):
-	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D)
+	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D, tile_based_nodes)
 	return tile_path3D
 
 func tile_path3D_to_world_path3D(tile_path3D):
@@ -81,6 +96,11 @@ func get_character_at_pos(tile_pos3D):
 		if node.get_tile_pos3D() == tile_pos3D:
 			return node
 
+
+func ability_selected(ability):
+	var character = get_character_at_pos(selected_tile_pos3D)
+	if character != null:
+		character.ability_selected(ability)
 #func _unhandled_input(event):
 #	if event.is_action_released("left_click"):
 #		print(a_star.get_path(tile_map3D, Vector3(0, 0, 0), Vector3(3, 2, 0)))

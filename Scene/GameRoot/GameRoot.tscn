@@ -1,13 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scene/GameRoot/GameRoot.gd" type="Script" id=1]
+[ext_resource path="res://Nodes/AbilityBar/AbilityBar.tscn" type="PackedScene" id=2]
 
 [node name="Game Root" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Camera2D" type="Camera2D" parent="." index="0"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="AbilityBar" parent="CanvasLayer" index="0" instance=ExtResource( 2 )]
+
+margin_right = 51.0
+
+[node name="Camera2D" type="Camera2D" parent="." index="1"]
 
 z_as_relative = false
 anchor_mode = 1
