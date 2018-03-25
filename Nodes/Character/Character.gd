@@ -83,11 +83,15 @@ func ability_selected(ability):
 
 func attack(target_character):
 	if selected_ability == 1:
-		var damage = Abilities.get_damage("Punch")
-		var stamina = Abilities.get_stamina("Punch")
+		var damage = -1#Abilities.PUNCH["DAMAGE"]
+		var stamina = -1#Abilities.PUNCH["STAMINA"]
 		adjust_stamina(stamina)
 		target_character.adjust_health(damage)
 	selected_ability = null
+	if stamina == 0:
+		path.clear()
+		is_turn = false
+		emit_signal("end_turn", self)
 
 
 func set_faction(value):

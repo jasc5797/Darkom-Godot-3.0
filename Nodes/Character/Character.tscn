@@ -68,6 +68,9 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -8 )
 script = ExtResource( 2 )
 _sections_unfolded = [ "Material", "Offset", "Pause", "Transform", "Visibility", "Z Index" ]
+tile_pos3D = Vector3( 0, 0, 0 )
+tile_size = Vector2( 64, 32 )
+faction = 0
 
 [node name="Tween" type="Tween" parent="." index="0"]
 

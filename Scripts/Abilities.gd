@@ -1,3 +1,5 @@
+tool
+
 extends Node
 
 # Targets: Self, teammates, multiple of same or different time

@@ -8,6 +8,8 @@ var show_circles = false
 var circles = []
 
 func get_path(tile_map3D, start_pos, goal_pos, tile_based_nodes):
+	for nodes in tile_based_nodes:
+		print(nodes.get_tile_pos3D())
 	circles.clear()
 	set_as_toplevel(true)
 	z_index = 100
@@ -19,6 +21,8 @@ func get_path(tile_map3D, start_pos, goal_pos, tile_based_nodes):
 	var cost = {}
 	came_from[start_pos] = null
 	cost[start_pos] = 0
+	if node_at_pos(tile_based_nodes, goal_pos):
+		return []
 	while not priority_queue.empty():
 		var current_pos = priority_queue.pop()
 		if show_circles:
