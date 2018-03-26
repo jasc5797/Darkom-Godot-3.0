@@ -6,9 +6,12 @@ var Outline = load(Resources.OUTLINE_PATH)
 var outline = Outline.instance()
 
 var tile_map3D
+var tile_camera
 var selected_tile_pos3D
 
+var hovered_over_tile_pos3D
 
+signal move_camera(tile_pos3D)
 
 #Key: Object Value: Pos   or visa versa    should be accessible by or passed to AStar 
 var objects_on_map3D = {}
@@ -32,13 +35,21 @@ func set_tile_map3D(new_tile_map3D):
 		if node.get_type() == "Character":
 			TurnManager.add_character(node, node.get_faction())
 			node.connect("target_character", self, "set_attacking_character")
+			node.connect("follow_me", self, "set_camera_follow_character")
 	TurnManager.start_turn()
 	#could call clean here
 	#for child in tile_map3D.get_children_tile_based_nodes():
 	#	print(child.get_is_collidable())
 
+func set_tile_camera(new_tile_camera):
+	tile_camera = new_tile_camera
+
 func set_attacking_character(new_attacking_character):
 	attacking_character = new_attacking_character
+
+func set_camera_follow_character(character):
+	if tile_camera != null:
+		tile_camera.set_follow_character(character)
 
 func get_tile_map3D():
 	return tile_map3D
@@ -57,10 +68,21 @@ func select_tile_pos2D(world_pos2D):
 			elif TurnManager.is_characters_turn(character):
 				outline.set_tile_pos3D(selected_tile_pos3D)
 				outline.show()
+				draw_radius(character.get_tile_pos3D(), character.stamina)
 		#print("Selected Tile Pos: %s" %selected_tile_pos3D)
 	else:
 		selected_tile_pos3D = null
 		outline.hide()
+
+func set_hovered_over_tile2D(world_pos2D):
+	var tile_pos3D_list
+	if world_pos2D != null:
+		tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
+	if tile_pos3D_list != null and !tile_pos3D_list.empty():
+		hovered_over_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
+	else:
+		hovered_over_tile_pos3D = null
+
 
 func move_to_tile_pos2D(world_pos2D):
 	var tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
@@ -77,6 +99,7 @@ func move_to_tile_pos2D(world_pos2D):
 				world_path2D.append(Vector2(world_pos3D.x, world_pos3D.y))
 			character.set_path(world_path2D, tile_path3D)
 			select_tile_pos2D(null)
+			tile_map3D.clear_draw_tile_pos()
 
 func get_tile_pos3D_path(start_pos3D, end_pos3D):
 	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D, tile_based_nodes)
@@ -93,7 +116,7 @@ func get_tile_based_nodes():
 
 func get_character_at_pos(tile_pos3D):
 	for node in tile_based_nodes:
-		if node.get_tile_pos3D() == tile_pos3D:
+		if node.get_tile_pos3D() == tile_pos3D && node.collidable:
 			return node
 
 
@@ -104,3 +127,15 @@ func ability_selected(ability):
 #func _unhandled_input(event):
 #	if event.is_action_released("left_click"):
 #		print(a_star.get_path(tile_map3D, Vector3(0, 0, 0), Vector3(3, 2, 0)))
+
+func draw_radius(start_pos3D, radius):
+	draw_tile_pos(start_pos3D, start_pos3D, radius, 0)
+
+func draw_tile_pos(start_pos3D, tile_pos3D, radius, current_depth):
+	if current_depth <= radius :
+		tile_map3D.draw_tile_pos(tile_pos3D, current_depth)
+		for neighbor_pos3D in tile_map3D.get_neighbors(tile_pos3D):
+			if !tile_map3D.has_draw_tile_pos3D(neighbor_pos3D) or tile_map3D.get_draw_tile_depth(neighbor_pos3D) > current_depth:
+				if get_character_at_pos(neighbor_pos3D) == null:
+					draw_tile_pos(start_pos3D, neighbor_pos3D, radius, current_depth + 1)
+

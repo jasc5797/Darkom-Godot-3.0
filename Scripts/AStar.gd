@@ -8,8 +8,6 @@ var show_circles = false
 var circles = []
 
 func get_path(tile_map3D, start_pos, goal_pos, tile_based_nodes):
-	for nodes in tile_based_nodes:
-		print(nodes.get_tile_pos3D())
 	circles.clear()
 	set_as_toplevel(true)
 	z_index = 100
@@ -44,7 +42,7 @@ func get_path(tile_map3D, start_pos, goal_pos, tile_based_nodes):
 
 func node_at_pos(tile_based_nodes, tile_pos3D):
 	for node in tile_based_nodes:
-		if node.get_tile_pos3D() == tile_pos3D:
+		if node.get_tile_pos3D() == tile_pos3D and node.collidable:
 			return true
 	return false
 

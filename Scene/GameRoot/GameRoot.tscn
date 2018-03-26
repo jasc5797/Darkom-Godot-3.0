@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scene/GameRoot/GameRoot.gd" type="Script" id=1]
 [ext_resource path="res://Nodes/AbilityBar/AbilityBar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Nodes/TileCamera/TileCamera.tscn" type="PackedScene" id=3]
 
 [node name="Game Root" type="Node2D"]
 
@@ -20,31 +21,9 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 margin_right = 51.0
 
-[node name="Camera2D" type="Camera2D" parent="." index="1"]
+[node name="TileCamera" parent="." index="1" instance=ExtResource( 3 )]
 
-z_as_relative = false
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Z Index" ]
+smoothing_enabled = true
+_sections_unfolded = [ "Offset", "Smoothing" ]
 
 

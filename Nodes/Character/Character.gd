@@ -6,6 +6,9 @@ export var faction = 0 setget set_faction, get_faction
 signal end_turn(character)
 signal target_character(character)
 
+#camera singles
+signal follow_me(character)
+
 onready var tween = get_node("Tween")
 
 
@@ -40,6 +43,7 @@ func set_path(new_world_path, new_tile_path):
 
 func move_on_path():
 	if is_turn:
+		emit_signal("follow_me", self)
 		if stamina == 0:
 			path.clear()
 			is_turn = false
@@ -51,6 +55,9 @@ func move_on_path():
 			move_to_pos(pos)
 			path.pop_front()
 			adjust_stamina(-1)
+		elif path != null and path.empty():
+			emit_signal("follow_me", null)
+
 
 func adjust_stamina(value):
 	stamina += value
@@ -76,6 +83,7 @@ func _on_Tween_completed( object, key ):
 	set_tile_pos3D(tile_pos3D)
 	tile_path.pop_front()
 	move_on_path()
+	
 
 func ability_selected(ability):
 	selected_ability = ability
@@ -91,7 +99,7 @@ func attack(target_character):
 	if stamina == 0:
 		path.clear()
 		is_turn = false
-		emit_signal("end_turn", self)
+
 
 
 func set_faction(value):

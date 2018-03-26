@@ -104,3 +104,20 @@ func world2D_to_map3D(tile_pos3D_list):
 		if heighest_tile_pos3D == null or tile_pos3D.z > heighest_tile_pos3D.z:
 			heighest_tile_pos3D = tile_pos3D
 	return heighest_tile_pos3D
+
+func draw_tile_pos(tile_pos3D, depth):
+	var tile_map2D = get_level(tile_pos3D.z)
+	tile_map2D.add_draw_tile_pos3D(tile_pos3D, depth)
+
+func clear_draw_tile_pos():
+	for level in get_levels():
+		var tile_map2D = get_level(level)
+		tile_map2D.clear_draw_tile_pos3D()
+
+func has_draw_tile_pos3D(tile_pos3D):
+	var tile_map = get_level(tile_pos3D.z)
+	return tile_map.has_draw_tile_pos3D(tile_pos3D)
+
+func get_draw_tile_depth(tile_pos3D):
+	var tile_map = get_level(tile_pos3D.z)
+	return tile_map.get_draw_tile_depth(tile_pos3D)

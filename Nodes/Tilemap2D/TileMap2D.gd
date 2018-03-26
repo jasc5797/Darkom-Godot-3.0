@@ -3,13 +3,10 @@ extends TileMap
 
 export(int) var level = 0 setget set_level, get_level
 
-
-
 #Valid/Walkable tiles
 var tile_map = {}
 
 var unattached_neighbors = {}
-
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -24,10 +21,16 @@ func _draw():
 		for tile_pos2D in tile_map:
 			draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
 
+
 func initialize_tile_map():
 	for tile_pos2D in get_used_cells():
-		tile_map[tile_pos2D] = []
-	for tile_pos2D in tile_map:
+		var tile_id = get_cellv(tile_pos2D)
+		var tile_name = tile_set.tile_get_name(tile_id)
+		var open_index = tile_name.find("(")
+		var close_index = tile_name.find(")")
+		if open_index >= 0 and close_index >= 0:
+			tile_map[tile_pos2D] = []
+	for tile_pos2D in get_used_cells():
 		var tile_id = get_cellv(tile_pos2D)
 		var tile_name = tile_set.tile_get_name(tile_id)
 		var open_index = tile_name.find("(")
@@ -139,3 +142,15 @@ func map_to_world2D(tile_pos2D):
 
 func get_level_offset():
 	return Vector2(level, level)
+
+func add_draw_tile_pos3D(tile_pos3D, depth):
+	$Node2D.add_draw_tile_pos3D(tile_pos3D, depth)
+
+func clear_draw_tile_pos3D():
+	$Node2D.clear_draw_tile_pos3D()
+
+func has_draw_tile_pos3D(tile_pos3D):
+	return $Node2D.tile_pos3D_to_draw.has(tile_pos3D)
+
+func get_draw_tile_depth(tile_pos3D):
+	return $Node2D.get_depth(tile_pos3D)
