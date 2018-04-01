@@ -99,15 +99,18 @@ func _on_Tween_completed( object, key ):
 
 func ability_selected(ability):
 	selected_ability = ability
+	if selected_ability == 1:
+		MapHandler.draw_radius(get_tile_pos3D(), int(abilities["PUNCH"][Abilities.RANGE]), true)
 	emit_signal("target_character", self)
 
 func attack(target_character):
 	if selected_ability == 1:
-		if abilities["PUNCH"]["TARGET"] == "ENEMY" and faction != target_character.faction:
-			var damage = abilities["PUNCH"]["DAMAGE"]
-			var stamina = abilities["PUNCH"]["STAMINA"]
-			adjust_stamina(stamina)
-			target_character.adjust_health(damage)
+		if abilities["PUNCH"][Abilities.TARGET] == Abilities.ENEMY and faction != target_character.faction:
+			if is_in_range(target_character, abilities["PUNCH"][Abilities.RANGE]):
+				var damage = abilities["PUNCH"][Abilities.DAMAGE]
+				var stamina = abilities["PUNCH"][Abilities.STAMINA]
+				adjust_stamina(stamina)
+				target_character.adjust_health(damage)
 	selected_ability = null
 	if stamina == 0:
 		if path != null:
@@ -116,7 +119,8 @@ func attack(target_character):
 		emit_signal("end_turn", self)
 	emit_signal("deselect_me", self)
 
-
+func is_in_range(target_character, distance):
+	return MapHandler.get_tile_pos3D_path(get_tile_pos3D(), target_character.get_tile_pos3D(), true).size() - 1 <= int(distance)
 
 func set_faction(value):
 	if value != null:

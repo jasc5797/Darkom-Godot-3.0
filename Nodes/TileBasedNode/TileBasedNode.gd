@@ -23,7 +23,7 @@ func set_tile_pos3D(new_tile_pos3D):
 		set_position(Vector2(x, y))
 		#Trying to get a z level between each tilemap by multiplying the level by two 
 		#doesnt work for negative levels
-		z_index = (tile_pos3D.z * 2) + 1
+		z_index = 100#(tile_pos3D.z * 2) + 1
 
 func get_tile_pos3D():
 	return tile_pos3D

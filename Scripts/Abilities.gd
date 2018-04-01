@@ -6,6 +6,12 @@ extends Node
 
 var PUNCH = { "NAME" : "Punch", "DAMAGE" : "-1", "STAMINA" : "-1","TARGET" : "ENEMY" }
 
+var TARGET = "TARGET"
+var ENEMY = "ENEMY"
+
+var DAMAGE = "DAMAGE"
+var RANGE = "RANGE"
+var STAMINA = "STAMINA"
 
 var ABILITIES = [PUNCH]
 

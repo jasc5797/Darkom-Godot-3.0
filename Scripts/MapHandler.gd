@@ -81,7 +81,7 @@ func select_tile_pos2D(world_pos2D):
 				selected_tile_pos3D = tile_pos3D
 				outline.set_tile_pos3D(selected_tile_pos3D)
 				outline.show()
-				draw_radius(character.get_tile_pos3D(), character.stamina)
+				draw_radius(character.get_tile_pos3D(), character.stamina, false)
 		#print("Selected Tile Pos: %s" %selected_tile_pos3D)
 	else:
 		selected_tile_pos3D = null
@@ -106,7 +106,7 @@ func move_to_tile_pos2D(world_pos2D):
 		#print(tile_pos3D)
 		var character = get_character_at_pos(selected_tile_pos3D)
 		if character != null:
-			var tile_path3D = get_tile_pos3D_path(selected_tile_pos3D, tile_pos3D)
+			var tile_path3D = get_tile_pos3D_path(selected_tile_pos3D, tile_pos3D, false)
 			var world_path3D = tile_path3D_to_world_path3D(tile_path3D)
 			var world_path2D = []
 			for world_pos3D in world_path3D:
@@ -115,8 +115,8 @@ func move_to_tile_pos2D(world_pos2D):
 			select_tile_pos2D(null)
 			tile_map3D.clear_draw_tile_pos()
 
-func get_tile_pos3D_path(start_pos3D, end_pos3D):
-	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D, tile_based_nodes)
+func get_tile_pos3D_path(start_pos3D, end_pos3D, ignore_nodes):
+	var tile_path3D = a_star.get_path(tile_map3D, start_pos3D, end_pos3D, tile_based_nodes, ignore_nodes)
 	return tile_path3D
 
 func tile_path3D_to_world_path3D(tile_path3D):
@@ -142,14 +142,15 @@ func ability_selected(ability):
 #	if event.is_action_released("left_click"):
 #		print(a_star.get_path(tile_map3D, Vector3(0, 0, 0), Vector3(3, 2, 0)))
 
-func draw_radius(start_pos3D, radius):
-	draw_tile_pos(start_pos3D, start_pos3D, radius, 0)
+func draw_radius(start_pos3D, radius, ignore_nodes):
+	tile_map3D.clear_draw_tile_pos()
+	draw_tile_pos(start_pos3D, start_pos3D, radius, 0, ignore_nodes)
 
-func draw_tile_pos(start_pos3D, tile_pos3D, radius, current_depth):
+func draw_tile_pos(start_pos3D, tile_pos3D, radius, current_depth, ignore_nodes):
 	if current_depth <= radius :
 		tile_map3D.draw_tile_pos(tile_pos3D, current_depth)
 		for neighbor_pos3D in tile_map3D.get_neighbors(tile_pos3D):
 			if !tile_map3D.has_draw_tile_pos3D(neighbor_pos3D) or tile_map3D.get_draw_tile_depth(neighbor_pos3D) > current_depth:
-				if get_character_at_pos(neighbor_pos3D) == null:
-					draw_tile_pos(start_pos3D, neighbor_pos3D, radius, current_depth + 1)
+				if ignore_nodes or get_character_at_pos(neighbor_pos3D) == null:
+					draw_tile_pos(start_pos3D, neighbor_pos3D, radius, current_depth + 1, ignore_nodes)
 
