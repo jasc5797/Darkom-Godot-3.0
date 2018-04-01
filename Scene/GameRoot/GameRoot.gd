@@ -7,6 +7,7 @@ var Character = load(Resources.CHARACTER_PATH)
 func _ready():
 	#OS.set_window_maximized(true)
 	MapHandler.set_tile_camera($TileCamera)
+	MapHandler.set_ysort($YSort)
 	var tile_map3D = Current_Map.instance()
 	add_child(tile_map3D)
 	var character = Character.instance()

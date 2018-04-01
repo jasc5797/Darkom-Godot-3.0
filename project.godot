@@ -23,6 +23,14 @@ Maps="*res://Scripts/Maps.gd"
 TurnManager="*res://Scripts/TurnManager.gd"
 MapHandler="*res://Scripts/MapHandler.gd"
 
+[debug]
+
+settings/fps/force_fps=144
+
+[display]
+
+window/vsync/use_vsync=false
+
 [input]
 
 left_click=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
@@ -34,4 +42,6 @@ right_click=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"reso
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

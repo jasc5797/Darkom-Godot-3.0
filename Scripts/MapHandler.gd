@@ -20,6 +20,11 @@ var tile_based_nodes = []
 
 var attacking_character
 
+var ysort
+
+func set_ysort(new_ysort):
+	ysort = new_ysort
+
 func _ready():
 	add_child(a_star)
 	add_child(outline)
@@ -34,8 +39,11 @@ func set_tile_map3D(new_tile_map3D):
 	for node in tile_based_nodes:
 		if node.get_type() == "Character":
 			TurnManager.add_character(node, node.get_faction())
+			tile_map3D.remove_child(node)
+			ysort.add_child(node)
 			node.connect("target_character", self, "set_attacking_character")
 			node.connect("follow_me", self, "set_camera_follow_character")
+			node.connect("deselect_me", self, "deselect_character")
 	TurnManager.start_turn()
 	#could call clean here
 	#for child in tile_map3D.get_children_tile_based_nodes():
@@ -46,6 +54,10 @@ func set_tile_camera(new_tile_camera):
 
 func set_attacking_character(new_attacking_character):
 	attacking_character = new_attacking_character
+
+func deselect_character(character):
+	if selected_tile_pos3D == character.get_tile_pos3D():
+		select_tile_pos2D(null)
 
 func set_camera_follow_character(character):
 	if tile_camera != null:
@@ -59,13 +71,14 @@ func select_tile_pos2D(world_pos2D):
 	if world_pos2D != null:
 		tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
 	if tile_pos3D_list != null and !tile_pos3D_list.empty():
-		selected_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
-		var character = get_character_at_pos(selected_tile_pos3D) 
+		var tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
+		var character = get_character_at_pos(tile_pos3D) 
 		if character != null:
 			if attacking_character != null:
 				attacking_character.attack(character)
 				attacking_character = null
 			elif TurnManager.is_characters_turn(character):
+				selected_tile_pos3D = tile_pos3D
 				outline.set_tile_pos3D(selected_tile_pos3D)
 				outline.show()
 				draw_radius(character.get_tile_pos3D(), character.stamina)
@@ -73,6 +86,7 @@ func select_tile_pos2D(world_pos2D):
 	else:
 		selected_tile_pos3D = null
 		outline.hide()
+		tile_map3D.clear_draw_tile_pos()
 
 func set_hovered_over_tile2D(world_pos2D):
 	var tile_pos3D_list

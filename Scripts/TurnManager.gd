@@ -40,7 +40,8 @@ func character_turn_ended(character):
 
 func end_character_turn(character):
 	var index = current_characters.find(character)
-	current_characters.remove(index)
+	if index >= 0:
+		current_characters.remove(index)
 
 func is_characters_turn(character):
 	return current_characters.has(character)

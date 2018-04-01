@@ -5,6 +5,7 @@ export var faction = 0 setget set_faction, get_faction
 
 signal end_turn(character)
 signal target_character(character)
+signal deselect_me(character)
 
 #camera singles
 signal follow_me(character)
@@ -26,13 +27,23 @@ var is_turn = false
 
 var selected_ability
 
+var abilities = {}
+
 #Not used currently. Unsure if faction should be set dynamically
 #var faction = Factions.PLAYER
 
 func _ready():
+	read_abilities()
 	$StaminaBar.max_value = MAX_STAMINA
 	$HealthBar.max_value = MAX_HEALTH
 	$HealthBar.value = health
+
+func read_abilities():
+	var file = File.new()
+	file.open(Resources.ABILITIES_PATH, File.READ)
+	var json = file.get_as_text()
+	abilities = JSON.parse(json).result
+	file.close()
 
 func set_path(new_world_path, new_tile_path):
 	path = new_world_path
@@ -48,6 +59,7 @@ func move_on_path():
 			path.clear()
 			is_turn = false
 			emit_signal("end_turn", self)
+			emit_signal("deselect_me", self)
 		if path != null and not path.empty():
 			var pos = path.front()
 			#set_sprite(get_pos(), pos)
@@ -60,11 +72,11 @@ func move_on_path():
 
 
 func adjust_stamina(value):
-	stamina += value
+	stamina += int(value)
 	$StaminaBar.value = stamina
 
 func adjust_health(value):
-	health += value
+	health += int(value)
 	$HealthBar.value = health
 
 func start_turn():
@@ -91,14 +103,18 @@ func ability_selected(ability):
 
 func attack(target_character):
 	if selected_ability == 1:
-		var damage = -1#Abilities.PUNCH["DAMAGE"]
-		var stamina = -1#Abilities.PUNCH["STAMINA"]
-		adjust_stamina(stamina)
-		target_character.adjust_health(damage)
+		if abilities["PUNCH"]["TARGET"] == "ENEMY" and faction != target_character.faction:
+			var damage = abilities["PUNCH"]["DAMAGE"]
+			var stamina = abilities["PUNCH"]["STAMINA"]
+			adjust_stamina(stamina)
+			target_character.adjust_health(damage)
 	selected_ability = null
 	if stamina == 0:
-		path.clear()
+		if path != null:
+			path.clear()
 		is_turn = false
+		emit_signal("end_turn", self)
+	emit_signal("deselect_me", self)
 
 
 

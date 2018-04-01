@@ -4,12 +4,17 @@
 [ext_resource path="res://Nodes/AbilityBar/AbilityBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Nodes/TileCamera/TileCamera.tscn" type="PackedScene" id=3]
 
-[node name="Game Root" type="Node2D"]
+[node name="Game Root" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
+[node name="YSort" type="YSort" parent="." index="0"]
+
+sort_enabled = true
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -21,7 +26,7 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 margin_right = 51.0
 
-[node name="TileCamera" parent="." index="1" instance=ExtResource( 3 )]
+[node name="TileCamera" parent="." index="2" instance=ExtResource( 3 )]
 
 smoothing_enabled = true
 _sections_unfolded = [ "Offset", "Smoothing" ]

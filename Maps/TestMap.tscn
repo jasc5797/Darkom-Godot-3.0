@@ -6,7 +6,7 @@
 [ext_resource path="res://Nodes/Character/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/PlayerSpawnPoint/PlayerSpawnPoint.tscn" type="PackedScene" id=5]
 
-[node name="TileMap3D" instance=ExtResource( 1 )]
+[node name="TileMap3D" index="0" instance=ExtResource( 1 )]
 
 [node name="2" parent="." index="0" instance=ExtResource( 2 )]
 
@@ -18,10 +18,9 @@ level = 2
 
 [node name="Character" parent="." index="1" instance=ExtResource( 4 )]
 
-position = Vector2( 416, -112 )
-z_index = 5
+position = Vector2( -32, 16 )
 _sections_unfolded = [ "Animation", "Material", "Offset", "Pause", "Transform", "Visibility", "Z Index" ]
-tile_pos3D = Vector3( 5, -8, 2 )
+tile_pos3D = Vector3( 0, 1, 0 )
 
 [node name="1" parent="." index="2" instance=ExtResource( 2 )]
 
@@ -38,6 +37,9 @@ tile_data = PoolIntArray( -524282, 3, 0, -458747, 4, 0, -458746, 0, 0, -458745, 
 _sections_unfolded = [ "Cell", "Pause", "Transform", "Z Index" ]
 
 [node name="Character2" parent="." index="4" instance=ExtResource( 4 )]
+
+position = Vector2( 0, 32 )
+tile_pos3D = Vector3( 1, 1, 0 )
 
 [node name="PlayerSpawnPoint" parent="." index="5" instance=ExtResource( 5 )]
 
@@ -65,9 +67,8 @@ level = -2
 [node name="Enemy" parent="." index="8" instance=ExtResource( 4 )]
 
 self_modulate = Color( 1, 0, 0, 1 )
-position = Vector2( -160, 112 )
-z_index = -1
-tile_pos3D = Vector3( 0, 5, -1 )
+position = Vector2( 0, 64 )
+tile_pos3D = Vector3( 2, 2, 0 )
 faction = 1
 
 
