@@ -88,7 +88,6 @@ func start_turn():
 func move_to_pos(pos):
 	tween.interpolate_property(self, "position", get_position(), pos, 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
-	
 
 func _on_Tween_completed( object, key ):
 	var tile_pos3D = tile_path.front()
@@ -99,9 +98,25 @@ func _on_Tween_completed( object, key ):
 
 func ability_selected(ability):
 	selected_ability = ability
+	var ability_name = get_ability_name(ability)
+	if abs(int(abilities[ability_name][Abilities.STAMINA])) <= stamina:
+		var distance = 0
+		if selected_ability == 1:
+			distance = int(abilities["PUNCH"][Abilities.RANGE])
+		if selected_ability == 2:
+			distance = int(abilities["FIRE_BALL"][Abilities.RANGE])
+		MapHandler.draw_radius(get_tile_pos3D(), distance, true)
+		emit_signal("target_character", self)
+	else:
+		emit_signal("deselect_me", self)
+
+func get_ability_name(value):
+	var ability_name = ""
 	if selected_ability == 1:
-		MapHandler.draw_radius(get_tile_pos3D(), int(abilities["PUNCH"][Abilities.RANGE]), true)
-	emit_signal("target_character", self)
+		ability_name = "PUNCH"
+	elif selected_ability == 2:
+		ability_name = "FIRE_BALL"
+	return ability_name
 
 func attack(target_character):
 	if selected_ability == 1:
@@ -109,6 +124,16 @@ func attack(target_character):
 			if is_in_range(target_character, abilities["PUNCH"][Abilities.RANGE]):
 				var damage = abilities["PUNCH"][Abilities.DAMAGE]
 				var stamina = abilities["PUNCH"][Abilities.STAMINA]
+				adjust_stamina(stamina)
+				target_character.adjust_health(damage)
+	if selected_ability == 2:
+		if abilities["FIRE_BALL"][Abilities.TARGET] == Abilities.ENEMY and faction != target_character.faction:
+			if is_in_range(target_character, abilities["FIRE_BALL"][Abilities.RANGE]):
+				var damage = abilities["FIRE_BALL"][Abilities.DAMAGE]
+				var stamina = abilities["FIRE_BALL"][Abilities.STAMINA]
+				var fire_ball = Resources.FireBall.instance()
+				add_child(fire_ball)
+				fire_ball.move_between_characters(self, target_character)
 				adjust_stamina(stamina)
 				target_character.adjust_health(damage)
 	selected_ability = null

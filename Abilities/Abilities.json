@@ -1,7 +1,0 @@
-{"PUNCH":{
-			"DAMAGE" : -1,
-			"STAMINA" : -1,
-			"RANGE": 1,
-			"TARGET": "ENEMY"
-	}
-}

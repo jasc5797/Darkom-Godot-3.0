@@ -1,0 +1,14 @@
+{
+	"PUNCH" : {
+		"DAMAGE" : -1,
+		"STAMINA" : -1,
+		"RANGE": 1,
+		"TARGET": "ENEMY"
+	},
+	"FIRE_BALL" : {
+		"DAMAGE" : -5,
+		"STAMINA" : -5,
+		"RANGE": 5,
+		"TARGET": "ENEMY"
+	}
+}
