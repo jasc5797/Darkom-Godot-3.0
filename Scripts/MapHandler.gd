@@ -39,8 +39,8 @@ func set_tile_map3D(new_tile_map3D):
 	for node in tile_based_nodes:
 		if node.get_type() == "Character":
 			TurnManager.add_character(node, node.get_faction())
-			tile_map3D.remove_child(node)
-			ysort.add_child(node)
+			#tile_map3D.remove_child(node)
+			#ysort.add_child(node)
 			node.connect("target_character", self, "set_attacking_character")
 			node.connect("follow_me", self, "set_camera_follow_character")
 			node.connect("deselect_me", self, "deselect_character")

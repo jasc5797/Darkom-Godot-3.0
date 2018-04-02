@@ -4,11 +4,10 @@ func _ready():
 	pass
 
 func move_between_characters(attacker, target):
-	rotate(get_angle_to(target.get_position()))
-	$Tween.interpolate_property(self, "position", get_position() + Vector2(0, 0), target.get_position(), 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	look_at(target.get_global_position())
+	rotate(- PI / 2)
+	$Tween.interpolate_property(self, "global_position", get_global_position(), target.get_global_position(), 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
-
-
 
 func _on_Tween_tween_completed(object, key):
 	hide()
