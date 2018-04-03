@@ -1,12 +1,39 @@
 extends Sprite
 
+export var speed_constant = 250
+
+
+
 func _ready():
+	hide()
+
+
+func get_property(property):
+	var name = get_name()
+	return Abilities.get_ability_property(name, property)
+
+func apply(attacker, target):
 	pass
 
+func is_in_range(attacker, target):
+	var attacker_pos = attacker.get_tile_pos3D()
+	var target_pos = target.get_tile_pos3D()
+	var distance = get_property(Abilities.RANGE)
+	return MapHandler.get_tile_pos3D_path(attacker_pos, target_pos, true).size() - 1 <= int(distance)
+
+func has_resources(attacker):
+	pass
+
+func get_name():
+	return "ABILITY"
+
 func move_between_characters(attacker, target):
-	look_at(target.get_global_position())
+	var attacker_pos = attacker.get_global_position()
+	var target_pos = target.get_global_position()
+	look_at(target_pos)
 	rotate(- PI / 2)
-	$Tween.interpolate_property(self, "global_position", get_global_position(), target.get_global_position(), 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	var time = attacker_pos.distance_to(target_pos) / speed_constant
+	$Tween.interpolate_property(self, "global_position", attacker_pos, target_pos, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 
 func _on_Tween_tween_completed(object, key):

@@ -1,36 +1,37 @@
-tool
+tool extends Node
 
-extends Node
-
-# Targets: Self, teammates, multiple of same or different time
-
-var PUNCH = { "NAME" : "Punch", "DAMAGE" : "-1", "STAMINA" : "-1","TARGET" : "ENEMY" }
-
-var TARGET = "TARGET"
-var ENEMY = "ENEMY"
-
+#Property names
 var DAMAGE = "DAMAGE"
 var RANGE = "RANGE"
 var STAMINA = "STAMINA"
+var TARGET = "TARGET"
 
-var ABILITIES = [PUNCH]
+#Property values
+#TARGET values
+var ENEMY = "ENEMY"
 
-func get_ability(name):
-	for ability in ABILITIES:
-		if ability["NAME"] == name:
-			return ability
+#Ability Names
+var PUNCH = "PUNCH"
+var FIRE_BALL = "FIRE_BALL"
 
-func get_damage(name):
-	var ability = get_ability(name)
-	if ability != null:
-		return int(ability["DAMAGE"])
+var abilities = {}
 
-func get_target(name):
-	var ability = get_ability(name)
-	if ability != null:
-		return ability["TARGET"]
+func _ready():
+	read_abilities_from_file()
 
-func get_stamina(name):
-	var ability = get_ability(name)
-	if ability != null:
-		return int(ability["STAMINA"])
+func read_abilities_from_file():
+	var file = File.new()
+	file.open(Resources.ABILITIES_PATH, File.READ)
+	var json = file.get_as_text()
+	abilities = JSON.parse(json).result
+	file.close()
+
+func get_ability_property(ability_name, property):
+	return abilities[ability_name][property]
+
+func instance_ability(ability_name):
+	if ability_name == PUNCH:
+		#return
+		pass
+	elif ability_name == FIRE_BALL:
+		return Resources.FireBall.instance()
