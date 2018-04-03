@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Nodes/Tilemap2D/TileMap2D.gd" type="Script" id=1]
 [ext_resource path="res://Font/Font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Nodes/Tilemap2D/Node2D.gd" type="Script" id=3]
+[ext_resource path="res://Nodes/Tilemap2D/Overlay/Overlay.tscn" type="PackedScene" id=3]
 
-[node name="0" type="TileMap"]
+[node name="0" type="TileMap" index="0"]
 
 z_as_relative = false
 mode = 1
@@ -52,8 +52,6 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "custom_colors", "custom_fonts" ]
 
-[node name="Node2D" type="Node2D" parent="." index="1"]
-
-script = ExtResource( 3 )
+[node name="Overlay" parent="." index="1" instance=ExtResource( 3 )]
 
 

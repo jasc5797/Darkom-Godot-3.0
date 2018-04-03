@@ -143,14 +143,17 @@ func map_to_world2D(tile_pos2D):
 func get_level_offset():
 	return Vector2(level, level)
 
+func get_overlay():
+	return $Overlay
+
 func add_draw_tile_pos3D(tile_pos3D, depth):
-	$Node2D.add_draw_tile_pos3D(tile_pos3D, depth)
+	$Overlay.add_draw_tile_pos3D(tile_pos3D, depth)
 
 func clear_draw_tile_pos3D():
-	$Node2D.clear_draw_tile_pos3D()
+	$Overlay.clear_draw_tile_pos3D()
 
 func has_draw_tile_pos3D(tile_pos3D):
-	return $Node2D.tile_pos3D_to_draw.has(tile_pos3D)
+	return $Overlay.tile_pos3D_to_draw.has(tile_pos3D)
 
 func get_draw_tile_depth(tile_pos3D):
-	return $Node2D.get_depth(tile_pos3D)
+	return $Overlay.get_depth(tile_pos3D)

@@ -7,8 +7,8 @@ var outline = Outline.instance()
 
 var tile_map3D
 var tile_camera
-var selected_tile_pos3D
 
+var selected_tile_pos3D
 var hovered_over_tile_pos3D
 
 signal move_camera(tile_pos3D)
@@ -28,7 +28,6 @@ func set_ysort(new_ysort):
 func _ready():
 	add_child(a_star)
 	add_child(outline)
-	#set_process_unhandled_input(true)
 
 func set_target_character():
 	var target_character = true
@@ -46,8 +45,6 @@ func set_tile_map3D(new_tile_map3D):
 			node.connect("deselect_me", self, "deselect_character")
 	TurnManager.start_turn()
 	#could call clean here
-	#for child in tile_map3D.get_children_tile_based_nodes():
-	#	print(child.get_is_collidable())
 
 func set_tile_camera(new_tile_camera):
 	tile_camera = new_tile_camera
@@ -138,9 +135,6 @@ func ability_selected(ability):
 	var character = get_character_at_pos(selected_tile_pos3D)
 	if character != null:
 		character.ability_selected(ability)
-#func _unhandled_input(event):
-#	if event.is_action_released("left_click"):
-#		print(a_star.get_path(tile_map3D, Vector3(0, 0, 0), Vector3(3, 2, 0)))
 
 func draw_radius(start_pos3D, radius, ignore_nodes):
 	tile_map3D.clear_draw_tile_pos()

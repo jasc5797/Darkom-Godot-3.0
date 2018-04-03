@@ -30,7 +30,6 @@ func _draw():
 			points.append(world_pos2D + Vector2(32, 16))
 			points.append(world_pos2D + Vector2(0, 32))
 			points.append(world_pos2D + Vector2(-32, 16))
-		
 		draw_polygon(points, [color])
 
 func clear_draw_tile_pos3D():
