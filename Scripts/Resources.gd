@@ -14,6 +14,10 @@ var TileBasedNode = load(TILE_BASED_NODE_PATH)
 # Node Paths
 const CHARACTER_PATH = "res://Nodes/Character/Character.tscn"
 
+#Ability Paths
+const PUNCH_PATH = "res://Nodes/Abilities/Punch/Punch.tscn"
+var Punch = load(PUNCH_PATH)
+
 const FIREBALL_PATH = "res://Nodes/Abilities/FireBall/FireBall.tscn"
 var FireBall = load(FIREBALL_PATH)
 

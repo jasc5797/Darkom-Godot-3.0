@@ -2,7 +2,7 @@ extends Sprite
 
 export var speed_constant = 250
 
-
+var selected_target
 
 func _ready():
 	hide()
@@ -27,6 +27,10 @@ func has_resources(attacker):
 func get_name():
 	return "ABILITY"
 
+func is_correct_target(attacker, target):
+	if get_property(Abilities.TARGET) == Abilities.ENEMY:
+		return attacker.faction != target.faction
+
 func move_between_characters(attacker, target):
 	var attacker_pos = attacker.get_global_position()
 	var target_pos = target.get_global_position()
@@ -37,5 +41,8 @@ func move_between_characters(attacker, target):
 	$Tween.start()
 
 func _on_Tween_tween_completed(object, key):
+	end()
+
+func end():
 	hide()
 	queue_free()

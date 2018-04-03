@@ -84,6 +84,15 @@ func start_turn():
 	stamina = MAX_STAMINA
 	$StaminaBar.value = stamina
 
+func end_turn():
+	selected_ability = null
+	if stamina == 0:
+		if path != null:
+			path.clear()
+		is_turn = false
+		emit_signal("end_turn", self)
+	emit_signal("deselect_me", self)
+
 func move_to_pos(pos):
 	tween.interpolate_property(self, "position", get_position(), pos, 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
@@ -95,7 +104,9 @@ func _on_Tween_completed( object, key ):
 	move_on_path()
 
 func ability_selected(ability_id):
-	if ability_id == 2:
+	if ability_id == 1:
+		selected_ability = Abilities.instance_ability(Abilities.PUNCH)
+	elif ability_id == 2:
 		selected_ability = Abilities.instance_ability(Abilities.FIRE_BALL)
 	if selected_ability != null and selected_ability.has_resources(self):
 		var distance = selected_ability.get_property(Abilities.RANGE)
@@ -105,10 +116,10 @@ func ability_selected(ability_id):
 		emit_signal("deselect_me", self)
 
 func attack(target):
-	if selected_ability != null:
+	if selected_ability != null and selected_ability.is_correct_target(self, target):
 		add_child(selected_ability)
 		selected_ability.apply(self, target)
-	emit_signal("deselect_me", self)
+	end_turn()
 
 func set_faction(value):
 	if value != null:

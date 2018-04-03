@@ -31,7 +31,6 @@ func get_ability_property(ability_name, property):
 
 func instance_ability(ability_name):
 	if ability_name == PUNCH:
-		#return
-		pass
+		return Resources.Punch.instance()
 	elif ability_name == FIRE_BALL:
 		return Resources.FireBall.instance()

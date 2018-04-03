@@ -1,6 +1,4 @@
-extends "res://Nodes/Abilities/Ability.gd"
-
-var selected_target 
+extends "res://Nodes/Abilities/Ability.gd" 
 
 func _ready():
 	pass
