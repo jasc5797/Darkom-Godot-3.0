@@ -2,8 +2,17 @@ extends Node2D
 
 var tile_pos3D_to_draw = {}
 
+var overlay_tile_pos3D_list = []
+
 func _ready():
 	pass
+
+func set_overlay_tile_pos3D_list(tile_pos3D_list):
+	overlay_tile_pos3D_list = tile_pos3D_list
+
+func clear():
+	overlay_tile_pos3D_list.clear()
+	update()
 
 func _draw():
 	for tile_pos3D in tile_pos3D_to_draw:
