@@ -16,7 +16,10 @@ func set_ability_selected(ability):
 	emit_signal("ability_selected", ability)
 
 func button1_released():
-	set_ability_selected(1)
+	set_ability_selected(Abilities.PUNCH)
 
 func button2_released():
-	set_ability_selected(2)
+	set_ability_selected(Abilities.FIRE_BALL)
+
+func _on_Button3_button_up():
+	set_ability_selected(Abilities.ARROW)

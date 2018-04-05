@@ -10,5 +10,11 @@
 		"STAMINA" : -5,
 		"RANGE": 5,
 		"TARGET": "ENEMY"
+	},
+	"ARROW" : {
+		"DAMAGE" : -2,
+		"STAMINA" : -2,
+		"RANGE": 8,
+		"TARGET": "ENEMY"
 	}
 }

@@ -13,6 +13,9 @@ var ENEMY = "ENEMY"
 #Ability Names
 var PUNCH = "PUNCH"
 var FIRE_BALL = "FIRE_BALL"
+var ARROW = "ARROW"
+
+var list = [ PUNCH, FIRE_BALL, ARROW ]
 
 var abilities = {}
 
@@ -34,3 +37,5 @@ func instance_ability(ability_name):
 		return Resources.Punch.instance()
 	elif ability_name == FIRE_BALL:
 		return Resources.FireBall.instance()
+	elif ability_name == ARROW:
+		return Resources.Arrow.instance()

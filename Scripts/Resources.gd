@@ -11,6 +11,9 @@ var PriorityQueue = load(PRIORITY_QUEUE_PATH)
 const TILE_BASED_NODE_PATH = "res://Nodes/TileBasedNode/TileBasedNode.gd"
 var TileBasedNode = load(TILE_BASED_NODE_PATH)
 
+const SELECTED_ARROW_PATH = "res://Nodes/SelectedArrow/SelectedArrow.tscn"
+var SelectedArrow = load(SELECTED_ARROW_PATH)
+
 # Node Paths
 const CHARACTER_PATH = "res://Nodes/Character/Character.tscn"
 
@@ -20,6 +23,9 @@ var Punch = load(PUNCH_PATH)
 
 const FIREBALL_PATH = "res://Nodes/Abilities/FireBall/FireBall.tscn"
 var FireBall = load(FIREBALL_PATH)
+
+const ARROW_PATH = "res://Nodes/Abilities/Arrow/Arrow.tscn"
+var Arrow = load(ARROW_PATH)
 
 const OUTLINE_PATH = "res://Nodes/Outline/Outline.tscn"
 

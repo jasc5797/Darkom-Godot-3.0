@@ -103,11 +103,8 @@ func _on_Tween_completed( object, key ):
 	tile_path.pop_front()
 	move_on_path()
 
-func ability_selected(ability_id):
-	if ability_id == 1:
-		selected_ability = Abilities.instance_ability(Abilities.PUNCH)
-	elif ability_id == 2:
-		selected_ability = Abilities.instance_ability(Abilities.FIRE_BALL)
+func ability_selected(ability):
+	selected_ability = Abilities.instance_ability(ability)
 	if selected_ability != null and selected_ability.has_resources(self):
 		var distance = selected_ability.get_property(Abilities.RANGE)
 		MapHandler.draw_radius(get_tile_pos3D(), distance, true)

@@ -5,6 +5,8 @@ var a_star = Resources.A_Star.new()
 var Outline = load(Resources.OUTLINE_PATH)
 var outline = Outline.instance()
 
+var SelectedArrow = Resources.SelectedArrow.instance()
+
 var tile_map3D
 var tile_camera
 
@@ -27,7 +29,7 @@ func set_ysort(new_ysort):
 
 func _ready():
 	add_child(a_star)
-	add_child(outline)
+	add_child(SelectedArrow)
 
 func set_target_character():
 	var target_character = true
@@ -76,12 +78,15 @@ func select_tile_pos2D(world_pos2D):
 				attacking_character = null
 			elif TurnManager.is_characters_turn(character):
 				selected_tile_pos3D = tile_pos3D
+				SelectedArrow.set_character(character)
 				outline.set_tile_pos3D(selected_tile_pos3D)
+				SelectedArrow.show()
 				outline.show()
 				draw_radius(character.get_tile_pos3D(), character.stamina, false)
 		#print("Selected Tile Pos: %s" %selected_tile_pos3D)
 	else:
 		selected_tile_pos3D = null
+		SelectedArrow.hide()
 		outline.hide()
 		tile_map3D.clear_draw_tile_pos()
 

@@ -1,8 +1,4 @@
-tool
 extends "res://Nodes/Abilities/Ability.gd" 
-
-
-var display_name = "Fire Ball"
 
 func _ready():
 	pass
@@ -17,10 +13,7 @@ func has_resources(attacker):
 	return attacker.stamina >= int(get_property(Abilities.STAMINA))
 
 func get_name():
-	return Abilities.FIRE_BALL
-
-func get_display_name():
-	return "Fire Ball"
+	return Abilities.ARROW
 
 func move_between_characters(attacker, target):
 	show()
