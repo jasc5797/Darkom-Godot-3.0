@@ -33,17 +33,9 @@ var abilities = {}
 #var faction = Factions.PLAYER
 
 func _ready():
-	read_abilities()
 	$StaminaBar.max_value = MAX_STAMINA
 	$HealthBar.max_value = MAX_HEALTH
 	$HealthBar.value = health
-
-func read_abilities():
-	var file = File.new()
-	file.open(Resources.ABILITIES_PATH, File.READ)
-	var json = file.get_as_text()
-	abilities = JSON.parse(json).result
-	file.close()
 
 func set_path(new_world_path, new_tile_path):
 	path = new_world_path

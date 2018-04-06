@@ -16,8 +16,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Abilities="*res://Scripts/Abilities.gd"
 Resources="*res://Scripts/Resources.gd"
+Abilities="*res://Scripts/Abilities.gd"
 Factions="*res://Scripts/Factions.gd"
 Maps="*res://Scripts/Maps.gd"
 TurnManager="*res://Scripts/TurnManager.gd"
