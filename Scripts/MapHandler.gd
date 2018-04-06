@@ -7,6 +7,8 @@ var outline = Outline.instance()
 
 var SelectedArrow = Resources.SelectedArrow.instance()
 
+var dijkstra = load("res://Scripts/Dijkstra.gd").new()
+
 var tile_map3D
 var tile_camera
 
@@ -29,6 +31,7 @@ func set_ysort(new_ysort):
 
 func _ready():
 	add_child(a_star)
+	add_child(outline)
 	add_child(SelectedArrow)
 
 func set_target_character():
@@ -143,7 +146,10 @@ func ability_selected(ability):
 
 func draw_radius(start_pos3D, radius, ignore_nodes):
 	tile_map3D.clear_draw_tile_pos()
-	draw_tile_pos(start_pos3D, start_pos3D, radius, 0, ignore_nodes)
+	#draw_tile_pos(start_pos3D, start_pos3D, radius, 0, ignore_nodes)
+	var tiles = dijkstra.get_tiles_in_range(tile_map3D, start_pos3D, radius, tile_based_nodes, true)
+	for tile in tiles:
+		tile_map3D.draw_tile_pos(tile, radius)
 
 func draw_tile_pos(start_pos3D, tile_pos3D, radius, current_depth, ignore_nodes):
 	if current_depth <= radius :
