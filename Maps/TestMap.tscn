@@ -6,7 +6,7 @@
 [ext_resource path="res://Nodes/Character/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/PlayerSpawnPoint/PlayerSpawnPoint.tscn" type="PackedScene" id=5]
 
-[node name="TileMap3D" index="0" instance=ExtResource( 1 )]
+[node name="TileMap3D" instance=ExtResource( 1 )]
 
 [node name="2" parent="." index="0" instance=ExtResource( 2 )]
 
@@ -44,7 +44,7 @@ tile_pos3D = Vector3( 1, 1, 0 )
 [node name="PlayerSpawnPoint" parent="." index="5" instance=ExtResource( 5 )]
 
 position = Vector2( 224, 16 )
-z_index = 3
+z_index = 100
 tile_pos3D = Vector3( 5, -2, 1 )
 
 [node name="-1" parent="." index="6" instance=ExtResource( 2 )]

@@ -1,4 +1,3 @@
-tool
 extends "res://Nodes/Abilities/Ability.gd" 
 
 

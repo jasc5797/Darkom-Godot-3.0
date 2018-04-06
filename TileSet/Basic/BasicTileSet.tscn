@@ -15,14 +15,14 @@ position = Vector2( 97.3175, 67.8887 )
 texture = ExtResource( 1 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
-[node name="RightSlope(UW,E,S,N)" type="Sprite" parent="." index="1"]
+[node name="RightSlope(UW,UWN,UWS,E,S,N)" type="Sprite" parent="." index="1"]
 
 position = Vector2( 133.494, 62.2867 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -32 )
 _sections_unfolded = [ "Offset" ]
 
-[node name="LeftSlope(UN,S,E,W)" type="Sprite" parent="." index="2"]
+[node name="LeftSlope(UN,UNE,UNW,S,E,W)" type="Sprite" parent="." index="2"]
 
 position = Vector2( 59.2277, 63.2158 )
 texture = ExtResource( 3 )

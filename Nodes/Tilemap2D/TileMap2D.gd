@@ -74,23 +74,39 @@ func set_unattached_neighbors(tile_pos2D, tile_info):
 	var neighbors_to_check = []
 	for info in tile_info:
 		if info.find("D") >= 0:
-			if info.find("N") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(0, -1, -1))
-			if info.find("S") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(0, 1, -1))
-			if info.find("W") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, -1))
-			if info.find("E") >= 0 or info.find("A") >= 0:
+			var offset = Vector3(0, 0, -1)
+			if info.find("N") >= 0:
+				offset += Vector3(0, -1, 0)
+			if info.find("S") >= 0:
+				offset +=tile_pos3D + Vector3(0, 1, 0)
+			if info.find("W") >= 0:
+				offset += Vector3(-1, 0, 0)
+			if info.find("E") >= 0:
+				offset += Vector3(1, 0, 0)
+			if offset != Vector3(0, 0, -1):
+				neighbors_to_check.append(tile_pos3D + offset)
+			if info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(1, 0, -1))
+				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, -1))
+				neighbors_to_check.append(tile_pos3D + Vector3(0, 1, -1))
+				neighbors_to_check.append(tile_pos3D + Vector3(0, -1, -1))
 		if info.find("U") >= 0:
-			if info.find("N") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(0, -1, 1))
-			if info.find("S") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(0, 1, 1))
-			if info.find("W") >= 0 or info.find("A") >= 0:
-				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, 1))
-			if info.find("E") >= 0 or info.find("A") >= 0:
+			var offset = Vector3(0, 0, 1)
+			if info.find("N") >= 0:
+				offset += Vector3(0, -1, 0)
+			if info.find("S") >= 0:
+				offset +=tile_pos3D + Vector3(0, 1, 0)
+			if info.find("W") >= 0:
+				offset += Vector3(-1, 0, 0)
+			if info.find("E") >= 0:
+				offset += Vector3(1, 0, 0)
+			if offset != Vector3(0, 0, 1):
+				neighbors_to_check.append(tile_pos3D + offset)
+			if info.find("A") >= 0:
 				neighbors_to_check.append(tile_pos3D + Vector3(1, 0, 1))
+				neighbors_to_check.append(tile_pos3D + Vector3(-1, 0, 1))
+				neighbors_to_check.append(tile_pos3D + Vector3(0, 1, 1))
+				neighbors_to_check.append(tile_pos3D + Vector3(0, -1, 1))
 	if not neighbors_to_check.empty():
 		unattached_neighbors[tile_pos2D] = neighbors_to_check
 
