@@ -10,7 +10,7 @@ func apply(attacker, target):
 	move_between_characters(attacker, target)
 
 func has_resources(attacker):
-	return attacker.stamina >= int(get_property(Abilities.STAMINA))
+	return attacker.stamina >= abs(int(get_property(Abilities.STAMINA)))
 
 func get_name():
 	return Abilities.ARROW

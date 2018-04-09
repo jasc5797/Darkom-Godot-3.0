@@ -77,7 +77,7 @@ func start_turn():
 
 func end_turn():
 	selected_ability = null
-	if stamina == 0:
+	if stamina <= 0:
 		if path != null:
 			path.clear()
 		is_turn = false
