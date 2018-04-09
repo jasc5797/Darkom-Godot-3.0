@@ -63,6 +63,16 @@ func get_neighbors(tile_pos3D):
 	var tile_pos2D = Vector2(tile_pos3D.x, tile_pos3D.y)
 	return get_level(level).get_neighbors(tile_pos2D)
 
+func get_all_tile_pos3D():
+	var tile_pos3D_list = []
+	for level in levels:
+		var tile_map2D = get_level(level)
+		var tile_map = tile_map2D.get_tile_map()
+		for tile_pos2D in tile_map:
+			var tile_pos3D = Vector3(tile_pos2D.x, tile_pos2D.y, level)
+			tile_pos3D_list.append(tile_pos3D)
+	return tile_pos3D_list
+
 func has_tile_pos3D(tile_pos3D):
 	var level = tile_pos3D.z
 	if has_level(level):
