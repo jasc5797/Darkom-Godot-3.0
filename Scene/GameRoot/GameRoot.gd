@@ -1,6 +1,6 @@
 extends Node2D
 
-var Current_Map = load(Maps.SMALL_PATH)
+var Current_Map = load(Maps.LEVEL_1_PATH)
 
 var Character = load(Resources.CHARACTER_PATH)
 

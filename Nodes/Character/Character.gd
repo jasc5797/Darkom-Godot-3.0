@@ -95,8 +95,7 @@ func _on_Tween_completed( object, key ):
 	move_on_path()
 
 func ability_selected(ability):
-	if not is_editor_hint():
-		selected_ability = Abilities.instance_ability(ability)
+	selected_ability = Abilities.instance_ability(ability)
 	if selected_ability != null and selected_ability.has_resources(self):
 		var distance = selected_ability.get_property(Abilities.RANGE)
 		MapHandler.draw_radius(get_tile_pos3D(), distance, true)

@@ -34,7 +34,7 @@ func connect_level_neighbors():
 		for tile_pos2D in unattached_neighbors:
 			var neighbors = unattached_neighbors[tile_pos2D] 
 			for neighbor_pos3D in neighbors:
-				neighbor_pos3D += Vector3(0, 0, level)
+				#neighbor_pos3D += Vector3(0, 0, level)
 				if has_tile_pos3D(neighbor_pos3D):
 					tile_map2D.add_neighbor(tile_pos2D, neighbor_pos3D)
 					var neighbor_tile_map2D = get_level(neighbor_pos3D.z)
