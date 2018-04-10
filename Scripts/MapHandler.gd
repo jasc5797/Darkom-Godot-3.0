@@ -146,16 +146,6 @@ func ability_selected(ability):
 
 func draw_radius(start_pos3D, radius, ignore_nodes):
 	tile_map3D.clear_draw_tile_pos()
-	#draw_tile_pos(start_pos3D, start_pos3D, radius, 0, ignore_nodes)
 	var tiles = dijkstra.get_tiles_in_range(tile_map3D, start_pos3D, radius, tile_based_nodes, true)
 	for tile in tiles:
 		tile_map3D.draw_tile_pos(tile, radius)
-
-func draw_tile_pos(start_pos3D, tile_pos3D, radius, current_depth, ignore_nodes):
-	if current_depth <= radius :
-		tile_map3D.draw_tile_pos(tile_pos3D, current_depth)
-		for neighbor_pos3D in tile_map3D.get_neighbors(tile_pos3D):
-			if !tile_map3D.has_draw_tile_pos3D(neighbor_pos3D) or tile_map3D.get_draw_tile_depth(neighbor_pos3D) > current_depth:
-				if ignore_nodes or get_character_at_pos(neighbor_pos3D) == null:
-					draw_tile_pos(start_pos3D, neighbor_pos3D, radius, current_depth + 1, ignore_nodes)
-

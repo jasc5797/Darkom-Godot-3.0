@@ -4,6 +4,10 @@ var tile_pos3D_to_draw = {}
 
 var overlay_tile_pos3D_list = []
 
+var tile_pos2D_to_label = []
+
+var DEBUG = false
+
 func _ready():
 	pass
 
@@ -40,11 +44,14 @@ func _draw():
 			points.append(world_pos2D + Vector2(0, 32))
 			points.append(world_pos2D + Vector2(-32, 16))
 		draw_polygon(points, [color])
+	if DEBUG:
+		for tile_pos2D in tile_pos2D_to_label:
+			draw_string($Label.get_font("font"), get_parent().map_to_world(tile_pos2D) + Vector2(-16, 24), String(tile_pos2D), $Label.get_color("font_color")) 
 
 func clear_draw_tile_pos3D():
 	tile_pos3D_to_draw.clear()
 	update()
-	
+
 func add_draw_tile_pos3D(tile_pos3D, depth):
 	if !tile_pos3D_to_draw.has(tile_pos3D):
 		tile_pos3D_to_draw[tile_pos3D] = depth
@@ -53,3 +60,7 @@ func add_draw_tile_pos3D(tile_pos3D, depth):
 func get_depth(tile_pos3D):
 	if tile_pos3D_to_draw.has(tile_pos3D):
 		return tile_pos3D_to_draw[tile_pos3D]
+
+func add_tile_pos_to_label(tile_pos2D):
+	tile_pos2D_to_label.append(tile_pos2D)
+	update()

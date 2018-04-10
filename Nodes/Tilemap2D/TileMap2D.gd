@@ -19,7 +19,8 @@ func _draw():
 	#if Engine.is_editor_hint():
 	if false:
 		for tile_pos2D in tile_map:
-			draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
+			#draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
+			pass
 
 
 func initialize_tile_map():
@@ -30,6 +31,7 @@ func initialize_tile_map():
 		var close_index = tile_name.find(")")
 		if open_index >= 0 and close_index >= 0:
 			tile_map[tile_pos2D] = []
+			$Overlay.add_tile_pos_to_label(tile_pos2D)
 	for tile_pos2D in get_used_cells():
 		var tile_id = get_cellv(tile_pos2D)
 		var tile_name = tile_set.tile_get_name(tile_id)
