@@ -133,3 +133,14 @@ func has_draw_tile_pos3D(tile_pos3D):
 func get_draw_tile_depth(tile_pos3D):
 	var tile_map = get_level(tile_pos3D.z)
 	return tile_map.get_draw_tile_depth(tile_pos3D)
+
+func draw_path(path):
+	for level in levels:
+		var tile_map2D = get_level(level)
+		tile_map2D.get_overlay().draw_path(path)
+		draw_path(path)
+
+func clear_path():
+	for level in levels:
+		var tile_map2D = get_level(level)
+		tile_map2D.get_overlay().clear_path()

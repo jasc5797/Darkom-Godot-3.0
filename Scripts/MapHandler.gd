@@ -15,6 +15,8 @@ var tile_camera
 var selected_tile_pos3D
 var hovered_over_tile_pos3D
 
+var hover_over_path
+
 signal move_camera(tile_pos3D)
 
 #Key: Object Value: Pos   or visa versa    should be accessible by or passed to AStar 
@@ -92,6 +94,7 @@ func select_tile_pos2D(world_pos2D):
 		SelectedArrow.hide()
 		outline.hide()
 		tile_map3D.clear_draw_tile_pos()
+		tile_map3D.clear_path()
 
 func set_hovered_over_tile2D(world_pos2D):
 	var tile_pos3D_list
@@ -99,6 +102,12 @@ func set_hovered_over_tile2D(world_pos2D):
 		tile_pos3D_list = tile_map3D.world2D_to_map3D_list(world_pos2D)
 	if tile_pos3D_list != null and !tile_pos3D_list.empty():
 		hovered_over_tile_pos3D = tile_map3D.world2D_to_map3D(tile_pos3D_list)
+		var character = get_character_at_pos(selected_tile_pos3D)
+		if character != null and selected_tile_pos3D != hovered_over_tile_pos3D:
+			var path = get_tile_pos3D_path(selected_tile_pos3D, hovered_over_tile_pos3D, true)
+			if path != hover_over_path:
+				hover_over_path = path
+				#tile_map3D.draw_path(path)
 	else:
 		hovered_over_tile_pos3D = null
 

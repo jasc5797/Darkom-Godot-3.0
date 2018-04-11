@@ -6,6 +6,8 @@ var overlay_tile_pos3D_list = []
 
 var tile_pos2D_to_label = []
 
+var path = []
+
 var DEBUG = false
 
 func _ready():
@@ -47,6 +49,23 @@ func _draw():
 	if DEBUG:
 		for tile_pos2D in tile_pos2D_to_label:
 			draw_string($Label.get_font("font"), get_parent().map_to_world(tile_pos2D) + Vector2(-16, 24), String(tile_pos2D), $Label.get_color("font_color")) 
+	if path != null: 
+		for index in range(0, path.size()):
+			var current_tile3D = path[index]
+			var current_tile2D = Vector2(current_tile3D.x, current_tile2D.y)
+			var world_pos2D = get_parent().map_to_world(current_tile2D)
+			if current_tile3D.z == get_parent().get_level():
+				if index > 0:
+					var previous_tile3D = path[index - 1]
+					var previous_tile2D = Vector2(previous_tile3D.x, previous_tile3D.y)
+					var previous_world_pos2D = get_parent().map_to_world(previous_tile2D)
+					draw_line(world_pos2D, previous_world_pos2D, Color(1, 1, 1), 5, true)
+				elif index < path.size():
+					var next_tile3D = path[index + 1]
+					var next_tile2D = Vector2(next_tile3D.x, next_tile3D.y)
+					var next_world_pos2D = get_parent().map_to_world(next_tile2D)
+					draw_line(world_pos2D, next_world_pos2D, Color(1, 1, 1), 5, true)
+
 
 func clear_draw_tile_pos3D():
 	tile_pos3D_to_draw.clear()
@@ -64,3 +83,12 @@ func get_depth(tile_pos3D):
 func add_tile_pos_to_label(tile_pos2D):
 	tile_pos2D_to_label.append(tile_pos2D)
 	update()
+
+func draw_path(new_path):
+	if path != new_path:
+		path = new_path
+		update()
+
+
+func clear_path():
+	path.clear()
