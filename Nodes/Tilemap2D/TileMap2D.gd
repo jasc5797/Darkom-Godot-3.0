@@ -9,19 +9,7 @@ var tile_map = {}
 var unattached_neighbors = {}
 
 func _ready():
-	if Engine.is_editor_hint():
-		#self.set_self_modulate(Color(1, 1, 1, 0.5))
-		#update()
-		pass
 	initialize_tile_map()
-
-func _draw():
-	#if Engine.is_editor_hint():
-	if false:
-		for tile_pos2D in tile_map:
-			#draw_string($Label.get_font("font"), map_to_world(tile_pos2D), String(tile_pos2D), $Label.get_color("font_color")) 
-			pass
-
 
 func initialize_tile_map():
 	for tile_pos2D in get_used_cells():
