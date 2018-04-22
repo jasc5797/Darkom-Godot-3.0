@@ -2,8 +2,13 @@ extends HBoxContainer
 
 signal ability_selected(ability)
 
+var character
+
 func _ready():
 	set_process_input(true)
+
+func set_character(new_character):
+	character = new_character
 
 func _input(event):
 	#	if event.is_action("1"):

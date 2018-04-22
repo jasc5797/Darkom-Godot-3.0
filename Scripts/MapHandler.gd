@@ -91,6 +91,7 @@ func select_tile_pos2D(world_pos2D):
 		#print("Selected Tile Pos: %s" %selected_tile_pos3D)
 	else:
 		selected_tile_pos3D = null
+		attacking_character = null
 		SelectedArrow.hide()
 		outline.hide()
 		tile_map3D.clear_draw_tile_pos()

@@ -4,6 +4,8 @@ var Current_Map = load(Maps.LEVEL_1_PATH)
 
 var Character = load(Resources.CHARACTER_PATH)
 
+var test = load("res://Scripts/CharacterLoader.gd")
+
 func _ready():
 	#OS.set_window_maximized(true)
 	MapHandler.set_tile_camera($TileCamera)
@@ -18,6 +20,8 @@ func _ready():
 	set_process(true)
 	set_process_unhandled_input(true)
 	$CanvasLayer/AbilityBar.connect("ability_selected", self, "ability_selected")
+	add_child(test.new())
+	
 
 func ability_selected(ability):
 	MapHandler.ability_selected(ability)

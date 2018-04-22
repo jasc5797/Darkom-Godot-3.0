@@ -31,3 +31,4 @@ const OUTLINE_PATH = "res://Nodes/Outline/Outline.tscn"
 
 # JSON File Paths
 const ABILITIES_PATH = "res://Nodes/Abilities/Abilities.json"
+const CHARACTERS_PATH = "res://Nodes/Character/Characters.json"

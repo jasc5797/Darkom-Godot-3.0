@@ -1,20 +1,23 @@
 {
-	"PUNCH" : {
-		"DAMAGE" : -1,
-		"STAMINA" : -1,
+	"PUNCH": {
+		"DAMAGE": -1,
+		"STAMINA": -1,
 		"RANGE": 1,
-		"TARGET": "ENEMY"
+		"TARGET": "ENEMY",
+		"SUMMARY": "Punch an enemy that are near by."
 	},
-	"FIRE_BALL" : {
-		"DAMAGE" : -5,
-		"STAMINA" : -5,
+	"FIRE_BALL": {
+		"DAMAGE": -5,
+		"STAMINA": -5,
 		"RANGE": 5,
-		"TARGET": "ENEMY"
+		"TARGET": "ENEMY",
+		"SUMMARY": "Launch a magic fire ball at an enemy"
 	},
-	"ARROW" : {
-		"DAMAGE" : -2,
-		"STAMINA" : -2,
+	"ARROW": {
+		"DAMAGE": -2,
+		"STAMINA": -2,
 		"RANGE": 8,
-		"TARGET": "ENEMY"
+		"TARGET": "ENEMY",
+		"SUMMARY": "Fire an arrow at an enemy"
 	}
 }

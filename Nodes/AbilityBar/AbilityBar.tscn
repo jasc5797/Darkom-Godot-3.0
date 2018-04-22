@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Nodes/AbilityBar/AbilityBar.gd" type="Script" id=1]
 
-[node name="AbilityBar" type="HBoxContainer"]
+[node name="AbilityBar" type="HBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
